@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://LINEXIANSEN.github.io/AI-Creative-Assets-Platform/sitemap.xml
