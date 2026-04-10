@@ -1,0 +1,21 @@
+{
+  "name": "PicTool Pro - 免费在线图片处理工具",
+  "short_name": "PicTool Pro",
+  "description": "免费在线图片处理工具箱，支持图片压缩、格式转换、裁剪、水印、滤镜、拼图、旋转增强等12+功能。完全免费、本地处理、保护隐私。",
+  "start_url": "/LPicTool/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%236366f1' width='512' height='512' rx='96'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='280'>🎨</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["graphics", "utilities", "photo"],
+  "lang": "zh-CN",
+  "dir": "ltr"
+}
