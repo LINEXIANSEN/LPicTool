@@ -1,76 +1,203 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PicTool Pro v3.0 - 免费在线图片处理工具 | HEIC/GIF/增强</title>
-    <meta name="description" content="免费在线图片处理工具，支持HEIC格式、GIF动图、图片压缩、格式转换、裁剪、水印、滤镜、拼图、旋转增强等。完全免费、本地处理、保护隐私。">
-    <meta name="keywords" content="图片压缩,HEIC转换,GIF处理,在线图片处理,图片格式转换,JPG转PNG,PNG转JPG,WEBP转换,图片裁剪,水印工具,免费图片工具,图片增强">
-    <meta name="author" content="LINEXIANSEN">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://LINEXIANSEN.github.io/LPicTool/pictool-pro.html">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="PicTool Pro v3.0 - 免费在线图片处理工具">
-    <meta property="og:description" content="全新升级！支持HEIC格式、GIF动图处理、图片增强等12+功能。完全免费、本地处理、保护隐私。">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="zh_CN">
-    <meta property="og:url" content="https://LINEXIANSEN.github.io/LPicTool/pictool-pro.html">
-
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#6366f1">
+    <meta name="description" content="PicTool Pro - 高端图片处理工具">
+    <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
-
+    <title>PicTool Pro</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Light Theme - Apple Style */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --bg-tertiary: #fafafa;
+            --bg-elevated: rgba(255, 255, 255, 0.8);
+            --bg-glass: rgba(255, 255, 255, 0.72);
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --text-tertiary: #acacb0;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --accent-light: rgba(0, 113, 227, 0.1);
+            --gradient-hero: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+            --gradient-card: linear-gradient(180deg, #ffffff 0%, #f9f9fb 100%);
+            --gradient-glow: radial-gradient(ellipse at center top, rgba(0, 113, 227, 0.08) 0%, transparent 60%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.12);
+            --border-color: rgba(0, 0, 0, 0.06);
+            --border-subtle: rgba(0, 0, 0, 0.03);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --radius-2xl: 32px;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #141414;
+            --bg-elevated: rgba(28, 28, 30, 0.8);
+            --bg-glass: rgba(28, 28, 30, 0.72);
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --text-tertiary: #48484a;
+            --accent: #0a84ff;
+            --accent-hover: #409cff;
+            --accent-light: rgba(10, 132, 255, 0.15);
+            --gradient-hero: linear-gradient(135deg, #0a0a0a 0%, #1c1c1e 100%);
+            --gradient-card: linear-gradient(180deg, #1c1c1e 0%, #141414 100%);
+            --gradient-glow: radial-gradient(ellipse at center top, rgba(10, 132, 255, 0.15) 0%, transparent 60%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.5);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-subtle: rgba(255, 255, 255, 0.04);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
-            --accent: #f59e0b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 1.5rem 1rem;
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 80px 24px 100px;
+            background: var(--gradient-hero);
             text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-glow);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(0, 113, 227, 0.03) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(134, 134, 139, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-badge span {
+            width: 6px;
+            height: 6px;
+            background: #34c759;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation */
+        .nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: var(--shadow);
+            padding: 16px 24px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
         }
 
-        header .header-content {
+        .nav-inner {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
@@ -78,667 +205,714 @@
             justify-content: space-between;
         }
 
-        header h1 {
-            font-size: 1.5rem;
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
         }
 
-        .version-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
+        .nav-logo svg {
+            width: 28px;
+            height: 28px;
         }
 
-        .offline-badge {
-            background: var(--success);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            display: none;
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .offline-badge.show {
-            display: inline-block;
+        /* Glass Button */
+        .btn-glass {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-elevated);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Main Layout */
-        .main-container {
+        .btn-glass:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-1px);
+        }
+
+        .btn-glass svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(15deg);
+        }
+
+        [data-theme="dark"] .icon-sun { display: none; }
+        [data-theme="light"] .icon-moon { display: none; }
+
+        /* Main Container */
+        .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.5rem;
+            padding: 40px 24px;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .upload-area {
+            position: relative;
+            padding: 60px 40px;
+            background: var(--gradient-card);
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 113, 227, 0.02) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .upload-area:hover::before {
+            opacity: 1;
+        }
+
+        .upload-area.dragover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            transform: scale(1.01);
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, transparent 100%);
+            border-radius: var(--radius-lg);
+            color: var(--accent);
+        }
+
+        .upload-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .upload-area h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .upload-area p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .upload-area input {
+            display: none;
+        }
+
+        /* Features Grid */
+        .features-section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            position: relative;
+            padding: 32px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--border-color) 50%, transparent 100%);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: var(--accent-light);
+            border-radius: var(--radius-md);
+            color: var(--accent);
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Editor Layout */
+        .editor-layout {
             display: grid;
             grid-template-columns: 280px 1fr;
-            gap: 1.5rem;
+            gap: 24px;
+            margin-bottom: 40px;
         }
 
-        @media (max-width: 968px) {
-            .main-container {
+        @media (max-width: 900px) {
+            .editor-layout {
                 grid-template-columns: 1fr;
             }
-            .sidebar {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                z-index: 99;
-                border-radius: 20px 20px 0 0;
-                max-height: 60vh;
-                overflow-y: auto;
-            }
-            .tool-list {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .tool-btn {
-                flex-direction: column;
-                padding: 0.75rem;
-                font-size: 0.7rem;
-                gap: 0.25rem;
-            }
-            .tool-btn .icon {
-                font-size: 1.25rem;
-            }
-            .sidebar h3 {
-                text-align: center;
-            }
         }
 
-        /* Sidebar */
-        .sidebar {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 1rem;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-            box-shadow: var(--shadow);
+        /* Tools Panel */
+        .tools-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
         }
 
-        .sidebar h3 {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 0 0.5rem;
+        .tools-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .tool-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .tool-btn {
+        .tools-header h3 {
+            font-size: 15px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            border: none;
+            gap: 8px;
+        }
+
+        .tools-header h3 svg {
+            width: 18px;
+            height: 18px;
+            color: var(--accent);
+        }
+
+        .tools-list {
+            padding: 12px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
             background: transparent;
-            border-radius: 10px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.2s;
-            text-align: left;
-            font-size: 0.9rem;
-            color: var(--text);
             width: 100%;
-        }
-
-        .tool-btn:hover {
-            background: var(--bg);
-        }
-
-        .tool-btn.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-        }
-
-        .tool-btn .icon {
-            font-size: 1.25rem;
-            width: 24px;
-            text-align: center;
-        }
-
-        /* Content */
-        .content {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 1.5rem;
-            min-height: 600px;
-            box-shadow: var(--shadow);
-        }
-
-        .tool-header {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .tool-header h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .tool-header p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        /* Upload Zone */
-        .upload-zone {
-            border: 3px dashed var(--border);
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            text-align: center;
-            transition: all 0.3s;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            cursor: pointer;
-            margin-bottom: 1.5rem;
-        }
-
-        .upload-zone:hover,
-        .upload-zone.dragover {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-        }
-
-        .upload-zone .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .upload-zone h3 {
-            margin-bottom: 0.5rem;
-        }
-
-        .upload-zone p {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-        }
-
-        .upload-zone small {
-            color: var(--text-light);
-            font-size: 0.8rem;
-        }
-
-        /* Preview Section */
-        .preview-section {
-            display: none;
-            margin-top: 1.5rem;
-        }
-
-        .preview-section.show {
-            display: block;
-        }
-
-        .preview-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .preview-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .preview-box {
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .preview-box h4 {
-            margin-bottom: 0.75rem;
-            color: var(--text-light);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .preview-box img,
-        .preview-box canvas {
-            max-width: 100%;
-            max-height: 350px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
-
-        .file-info {
-            margin-top: 0.75rem;
-            padding: 0.75rem;
-            background: var(--card);
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: var(--text-light);
             text-align: left;
+            transition: all 0.2s ease;
         }
 
-        .file-info strong {
-            color: var(--text);
+        .tool-item:hover {
+            background: var(--bg-primary);
+        }
+
+        .tool-item.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+        }
+
+        .tool-item svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Canvas Area */
+        .canvas-area {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+
+        .canvas-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: 
+                linear-gradient(45deg, var(--bg-tertiary) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--bg-tertiary) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--bg-tertiary) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--bg-tertiary) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .canvas-wrapper canvas {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            box-shadow: var(--shadow-xl);
+            border-radius: var(--radius-md);
+        }
+
+        .canvas-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-tertiary);
+        }
+
+        .canvas-placeholder svg {
+            width: 64px;
+            height: 64px;
+            opacity: 0.5;
         }
 
         /* Controls Panel */
         .controls-panel {
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
         }
 
         .control-group {
-            margin-bottom: 1rem;
+            flex: 1;
+            min-width: 200px;
         }
 
-        .control-group:last-child {
-            margin-bottom: 0;
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
-        .control-group label {
-            display: block;
-            margin-bottom: 0.5rem;
+        .control-label span {
+            font-size: 13px;
             font-weight: 500;
-            font-size: 0.85rem;
-            color: var(--text);
+            color: var(--text-secondary);
         }
 
-        .control-group input[type="range"] {
+        .control-label .value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .slider-container {
+            position: relative;
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            position: absolute;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.1s ease;
+        }
+
+        input[type="range"] {
             width: 100%;
             height: 6px;
-            border-radius: 3px;
-            background: var(--border);
-            outline: none;
             -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
         }
 
-        .control-group input[type="range"]::-webkit-slider-thumb {
+        input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            cursor: grab;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            cursor: grab;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn svg {
             width: 18px;
             height: 18px;
-            border-radius: 50%;
-            background: var(--primary);
-            cursor: pointer;
-            transition: transform 0.2s;
         }
 
-        .control-group input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-        }
-
-        .control-group select,
-        .control-group input[type="text"],
-        .control-group input[type="number"] {
-            width: 100%;
-            padding: 0.625rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            background: var(--card);
-        }
-
-        .control-group input[type="color"] {
-            width: 50px;
-            height: 36px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            padding: 2px;
-        }
-
-        .control-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .range-value {
-            float: right;
-            color: var(--primary);
-            font-weight: 500;
-        }
-
-        /* Rotate Buttons */
-        .rotate-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .rotate-btn {
-            width: 48px;
-            height: 48px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            background: var(--card);
-            font-size: 1.25rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .rotate-btn:hover {
-            border-color: var(--primary);
-            background: #eef2ff;
-        }
-
-        .rotate-btn.active {
-            border-color: var(--primary);
-            background: var(--primary);
+        .btn-primary {
+            background: var(--accent);
             color: white;
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
         }
 
-        /* Flip Buttons */
-        .flip-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.35);
         }
 
-        .flip-btn {
-            flex: 1;
-            padding: 0.75rem;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            background: var(--card);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+        .btn-primary:active {
+            transform: translateY(0);
         }
 
-        .flip-btn:hover {
-            border-color: var(--primary);
-            background: #eef2ff;
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
 
-        /* Layout Grid */
-        .layout-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
         }
 
-        .layout-option {
-            aspect-ratio: 1;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            background: var(--card);
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
         }
 
-        .layout-option:hover,
-        .layout-option.active {
-            border-color: var(--primary);
-            background: #eef2ff;
+        .btn-ghost:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
 
-        .layout-preview {
-            width: 60%;
-            height: 60%;
-            display: grid;
-            gap: 2px;
+        .btn-block {
+            width: 100%;
         }
 
-        .layout-preview div {
-            background: var(--border);
-            border-radius: 2px;
-        }
-
-        /* Filter Grid */
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 0.75rem;
-        }
-
-        .filter-option {
-            text-align: center;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 10px;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-
-        .filter-option:hover {
-            background: var(--bg);
-        }
-
-        .filter-option.active {
-            background: #eef2ff;
-            border-color: var(--primary);
-        }
-
-        .filter-option canvas {
-            width: 70px;
-            height: 50px;
-            border-radius: 6px;
-            margin-bottom: 0.4rem;
-            box-shadow: var(--shadow);
-        }
-
-        .filter-option span {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            display: block;
-        }
-
-        /* Enhancement Controls */
-        .enhancement-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 480px) {
-            .enhancement-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Border Controls */
-        .border-options {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .border-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background: var(--card);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.85rem;
-        }
-
-        .border-btn:hover,
-        .border-btn.active {
-            border-color: var(--primary);
-            background: #eef2ff;
-        }
-
-        /* Batch List */
-        .batch-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .batch-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border);
-            background: var(--card);
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-        }
-
-        .batch-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .batch-item img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 6px;
-        }
-
-        .batch-item .info {
-            flex: 1;
-            font-size: 0.85rem;
-        }
-
-        .batch-item .status {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            background: var(--bg);
-            color: var(--text-light);
-        }
-
-        .batch-item .status.done {
-            background: #d1fae5;
-            color: #065f46;
+        .btn-lg {
+            padding: 16px 32px;
+            font-size: 16px;
         }
 
         /* Action Bar */
         .action-bar {
             display: flex;
-            gap: 0.75rem;
+            gap: 12px;
             flex-wrap: wrap;
-            justify-content: center;
-            padding-top: 1.25rem;
-            border-top: 1px solid var(--border);
         }
 
-        /* Buttons */
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 500;
+        /* Filter Grid */
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .filter-item {
+            position: relative;
+            aspect-ratio: 1;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
             cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            transition: all 0.2s ease;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
+        .filter-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        .filter-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
         }
 
-        .btn-success {
-            background: var(--success);
-            color: white;
+        .filter-item canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .btn-success:hover {
-            background: #059669;
-        }
-
-        .btn-secondary {
-            background: var(--bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        /* Loading */
-        .loading-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
+        .filter-item span {
+            position: absolute;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: rgba(255,255,255,0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+            padding: 6px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            text-align: center;
         }
 
-        .loading-overlay.show {
+        /* Rotate Buttons */
+        .rotate-buttons {
             display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 1rem;
+        .rotate-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 16px 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .rotate-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .rotate-btn svg {
+            width: 24px;
+            height: 24px;
+            color: var(--text-secondary);
+        }
+
+        .rotate-btn:hover svg {
+            color: var(--accent);
+        }
+
+        .rotate-btn span {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Aspect Ratio Buttons */
+        .aspect-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .aspect-btn {
+            padding: 12px 20px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .aspect-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .aspect-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Format Buttons */
+        .format-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .format-btn {
+            padding: 12px 24px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .format-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .format-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Quality Slider */
+        .quality-control {
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
         }
 
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 2rem;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--text);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            z-index: 1001;
-            transition: transform 0.3s ease;
-            box-shadow: var(--shadow-lg);
+            padding: 16px 28px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
         }
 
         .toast.show {
             transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
 
         /* Hidden */
@@ -746,1307 +920,719 @@
             display: none !important;
         }
 
-        /* Collage Upload Zone */
-        .collage-upload-area {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        .collage-thumb {
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Batch Files */
+        .batch-files {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .batch-file {
             position: relative;
-            aspect-ratio: 1;
-            border-radius: 8px;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
             overflow: hidden;
-            border: 2px solid var(--border);
+            border: 2px solid var(--border-color);
+            transition: all 0.2s ease;
         }
 
-        .collage-thumb img {
+        .batch-file:hover {
+            border-color: var(--accent);
+        }
+
+        .batch-file img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .collage-thumb .remove-btn {
+        .batch-file .remove {
             position: absolute;
             top: 4px;
             right: 4px;
             width: 20px;
             height: 20px;
-            background: var(--danger);
-            color: white;
-            border: none;
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 50%;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .collage-placeholder {
-            aspect-ratio: 1;
-            border: 2px dashed var(--border);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--text-light);
             cursor: pointer;
-            transition: all 0.2s;
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
 
-        .collage-placeholder:hover {
-            border-color: var(--primary);
-            background: #eef2ff;
+        .batch-file:hover .remove {
+            opacity: 1;
+        }
+
+        /* Text Input */
+        .text-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .text-input-group input,
+        .text-input-group textarea {
+            padding: 14px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .text-input-group input:focus,
+        .text-input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .text-input-group textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .text-input-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
         }
 
         /* Footer */
-        footer {
+        .footer {
+            padding: 60px 24px;
             text-align: center;
-            padding: 2rem;
-            color: var(--text-light);
-            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
         }
 
-        footer a {
-            color: var(--primary);
+        .footer p {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .footer a {
+            color: var(--accent);
             text-decoration: none;
         }
 
-        footer a:hover {
+        .footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--border-color) 50%, transparent 100%);
+            margin: 60px 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 60px 20px 80px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .container {
+                padding: 24px 16px;
+            }
+            
+            .upload-area {
+                padding: 40px 20px;
+            }
+            
+            .controls-panel {
+                padding: 16px;
+            }
+            
+            .control-group {
+                min-width: 100%;
+            }
+            
+            .action-bar {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>🎨 PicTool Pro <span class="version-badge">v3.0</span></h1>
-            <span class="offline-badge" id="offlineBadge">📴 离线可用</span>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="currentColor"/>
+                    <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" stroke-width="2" fill="none"/>
+                    <circle cx="16" cy="16" r="4" fill="white"/>
+                </svg>
+                PicTool Pro
+            </a>
+            <div class="nav-actions">
+                <button class="btn-glass theme-toggle" onclick="toggleTheme()" title="切换主题">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </button>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <div class="main-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <h3>🛠️ 工具箱</h3>
-            <div class="tool-list">
-                <button class="tool-btn active" data-tool="compress">
-                    <span class="icon">🗜️</span>
-                    <span>图片压缩</span>
-                </button>
-                <button class="tool-btn" data-tool="convert">
-                    <span class="icon">🔄</span>
-                    <span>格式转换</span>
-                </button>
-                <button class="tool-btn" data-tool="resize">
-                    <span class="icon">📐</span>
-                    <span>尺寸调整</span>
-                </button>
-                <button class="tool-btn" data-tool="crop">
-                    <span class="icon">✂️</span>
-                    <span>智能裁剪</span>
-                </button>
-                <button class="tool-btn" data-tool="rotate">
-                    <span class="icon">↻</span>
-                    <span>旋转翻转</span>
-                </button>
-                <button class="tool-btn" data-tool="watermark">
-                    <span class="icon">💧</span>
-                    <span>添加水印</span>
-                </button>
-                <button class="tool-btn" data-tool="text">
-                    <span class="icon">📝</span>
-                    <span>添加文字</span>
-                </button>
-                <button class="tool-btn" data-tool="enhance">
-                    <span class="icon">✨</span>
-                    <span>图片增强</span>
-                </button>
-                <button class="tool-btn" data-tool="border">
-                    <span class="icon">🖼️</span>
-                    <span>边框圆角</span>
-                </button>
-                <button class="tool-btn" data-tool="filter">
-                    <span class="icon">🎨</span>
-                    <span>滤镜效果</span>
-                </button>
-                <button class="tool-btn" data-tool="collage">
-                    <span class="icon">🖼️</span>
-                    <span>图片拼图</span>
-                </button>
-                <button class="tool-btn" data-tool="batch">
-                    <span class="icon">📦</span>
-                    <span>批量处理</span>
-                </button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span></span>
+                v3.0 全新发布
             </div>
-        </aside>
+            <h1>图片处理，<br>简单而强大</h1>
+            <p>本地运行，保护隐私。无需上传，告别等待。</p>
+        </div>
+    </section>
 
-        <!-- Content -->
-        <main class="content">
-            <div class="tool-header" id="toolHeader">
-                <h2>🗜️ 图片压缩</h2>
-                <p>智能压缩图片大小，在保持画质的同时减少文件体积</p>
-            </div>
-
-            <!-- Upload Zone -->
-            <div class="upload-zone" id="uploadZone">
-                <div class="icon">📤</div>
-                <h3>拖拽图片到此处</h3>
-                <p>或点击按钮选择文件</p>
-                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
-                    选择图片
-                </button>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3>拖放图片到这里</h3>
+                <p>支持 JPG、PNG、WebP、GIF、HEIC 格式 · 点击或拖放上传</p>
                 <input type="file" id="fileInput" accept="image/*" multiple>
-                <small style="display: block; margin-top: 1rem;">支持 JPG、PNG、WEBP、GIF、HEIC 格式</small>
             </div>
+            
+            <div class="batch-files hidden" id="batchFiles"></div>
+        </section>
 
-            <!-- Collage Upload Zone -->
-            <div class="upload-zone hidden" id="collageUploadZone">
-                <div class="icon">🖼️</div>
-                <h3>上传多张图片</h3>
-                <p>最多 9 张图片，用于拼图</p>
-                <button class="btn btn-primary" onclick="document.getElementById('collageInput').click()">
-                    选择多张图片
-                </button>
-                <input type="file" id="collageInput" accept="image/*" multiple>
-            </div>
-
-            <!-- Batch Upload Zone -->
-            <div class="upload-zone hidden" id="batchUploadZone">
-                <div class="icon">📦</div>
-                <h3>批量上传图片</h3>
-                <p>一次选择多张图片进行批量处理</p>
-                <button class="btn btn-primary" onclick="document.getElementById('batchInput').click()">
-                    选择多张图片
-                </button>
-                <input type="file" id="batchInput" accept="image/*" multiple>
-            </div>
-
-            <!-- Preview Section -->
-            <div class="preview-section" id="previewSection">
-                <!-- Single Preview -->
-                <div class="preview-grid" id="singlePreview">
-                    <div class="preview-box">
-                        <h4>原图</h4>
-                        <img id="originalImg" alt="原图">
-                        <div class="file-info" id="originalInfo"></div>
+        <!-- Features -->
+        <section class="features-section">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
                     </div>
-                    <div class="preview-box">
-                        <h4>处理后</h4>
-                        <canvas id="previewCanvas"></canvas>
-                        <div class="file-info" id="processedInfo"></div>
+                    <h3>极速压缩</h3>
+                    <p>智能压缩算法，在保持画质的同时最大化减小文件体积</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                        </svg>
+                    </div>
+                    <h3>格式转换</h3>
+                    <p>支持 JPG、PNG、WebP 格式互转，满足不同场景需求</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                        </svg>
+                    </div>
+                    <h3>旋转翻转</h3>
+                    <p>任意角度旋转，支持水平、垂直翻转</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                    </div>
+                    <h3>智能增强</h3>
+                    <p>亮度、对比度、饱和度、锐化，让图片更出彩</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                            <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <h3>创意滤镜</h3>
+                    <p>10 种精选滤镜，一键打造专业级效果</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 15l-2 5l9-11h-6l2-5l-9 11h6z"/>
+                        </svg>
+                    </div>
+                    <h3>批量处理</h3>
+                    <p>一次处理多张图片，高效又便捷</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Editor -->
+        <section class="editor-section">
+            <div class="editor-layout">
+                <!-- Tools Panel -->
+                <div class="tools-panel">
+                    <div class="tools-header">
+                        <h3>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                            </svg>
+                            工具面板
+                        </h3>
+                    </div>
+                    <div class="tools-list">
+                        <button class="tool-item active" data-tool="resize" onclick="switchTool('resize')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                            </svg>
+                            调整尺寸
+                        </button>
+                        <button class="tool-item" data-tool="compress" onclick="switchTool('compress')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                            </svg>
+                            图片压缩
+                        </button>
+                        <button class="tool-item" data-tool="format" onclick="switchTool('format')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/>
+                            </svg>
+                            格式转换
+                        </button>
+                        <button class="tool-item" data-tool="crop" onclick="switchTool('crop')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2v4m0 0H2m4 0h4M2 6h4m8 0v4m0-4h4m-4 12v4m0-4h-4m4 0h4M6 18v4m0-4h4"/>
+                            </svg>
+                            智能裁剪
+                        </button>
+                        <button class="tool-item" data-tool="rotate" onclick="switchTool('rotate')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            旋转翻转
+                        </button>
+                        <button class="tool-item" data-tool="enhance" onclick="switchTool('enhance')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                            图片增强
+                        </button>
+                        <button class="tool-item" data-tool="filter" onclick="switchTool('filter')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                            </svg>
+                            滤镜效果
+                        </button>
+                        <button class="tool-item" data-tool="watermark" onclick="switchTool('watermark')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                            </svg>
+                            添加水印
+                        </button>
+                        <button class="tool-item" data-tool="text" onclick="switchTool('text')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            添加文字
+                        </button>
+                        <button class="tool-item" data-tool="round" onclick="switchTool('round')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 16V8a4 4 0 014-4h8a4 4 0 014 4v8a4 4 0 01-4 4H8a4 4 0 01-4-4z"/>
+                            </svg>
+                            边框圆角
+                        </button>
+                        <button class="tool-item" data-tool="collage" onclick="switchTool('collage')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                <rect x="14" y="14" width="7" height="7" rx="1"/>
+                            </svg>
+                            图片拼图
+                        </button>
                     </div>
                 </div>
 
-                <!-- Collage Preview -->
-                <div class="preview-grid hidden" id="collagePreview">
-                    <div class="preview-box" style="grid-column: span 2;">
-                        <h4>拼图预览</h4>
-                        <canvas id="collageCanvas"></canvas>
-                    </div>
-                </div>
-
-                <!-- Batch List -->
-                <div class="batch-list hidden" id="batchList"></div>
-
-                <!-- Controls -->
-                <div class="controls-panel" id="controlsPanel">
-                    <!-- Compress -->
-                    <div id="compressControls">
-                        <div class="control-row">
-                            <div class="control-group">
-                                <label>压缩质量 <span class="range-value" id="qualityValue">80%</span></label>
-                                <input type="range" id="quality" min="1" max="100" value="80">
-                            </div>
-                            <div class="control-group">
-                                <label>最大宽度 <span class="range-value" id="maxWidthValue">1920px</span></label>
-                                <input type="range" id="maxWidth" min="100" max="4000" value="1920" step="100">
-                            </div>
+                <!-- Canvas Area -->
+                <div class="canvas-area">
+                    <div class="canvas-wrapper" id="canvasWrapper">
+                        <canvas id="canvas"></canvas>
+                        <div class="canvas-placeholder" id="placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span>上传图片开始编辑</span>
                         </div>
                     </div>
 
-                    <!-- Convert -->
-                    <div id="convertControls" class="hidden">
-                        <div class="control-group">
-                            <label>目标格式</label>
-                            <select id="targetFormat">
-                                <option value="image/jpeg">JPG - 适合照片</option>
-                                <option value="image/png">PNG - 支持透明</option>
-                                <option value="image/webp">WEBP - 体积更小</option>
-                            </select>
-                        </div>
-                        <div class="control-group">
-                            <label>压缩质量 <span class="range-value" id="convertQualityValue">90%</span></label>
-                            <input type="range" id="convertQuality" min="1" max="100" value="90">
-                        </div>
-                    </div>
-
-                    <!-- Resize -->
-                    <div id="resizeControls" class="hidden">
-                        <div class="control-row">
+                    <!-- Controls Panel -->
+                    <div class="controls-panel" id="controlsPanel">
+                        <!-- Resize Tool -->
+                        <div id="resizePanel" class="tool-panel">
                             <div class="control-group">
-                                <label>宽度 (px)</label>
-                                <input type="number" id="resizeWidth" value="800" min="1">
+                                <div class="control-label">
+                                    <span>宽度</span>
+                                    <span class="value" id="widthValue">0 px</span>
+                                </div>
+                                <input type="range" id="widthSlider" min="100" max="4000" value="1000">
                             </div>
                             <div class="control-group">
-                                <label>高度 (px)</label>
-                                <input type="number" id="resizeHeight" value="600" min="1">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label>
-                                <input type="checkbox" id="keepRatio" checked> 保持宽高比
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Crop -->
-                    <div id="cropControls" class="hidden">
-                        <div class="control-group">
-                            <label>裁剪比例</label>
-                            <select id="cropRatio">
-                                <option value="free">自由裁剪</option>
-                                <option value="1:1">1:1 正方形</option>
-                                <option value="4:3">4:3 标准</option>
-                                <option value="16:9">16:9 宽屏</option>
-                                <option value="3:4">3:4 竖版</option>
-                                <option value="9:16">9:16 手机竖屏</option>
-                                <option value="21:9">21:9 电影比例</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Rotate -->
-                    <div id="rotateControls" class="hidden">
-                        <label style="display: block; margin-bottom: 0.75rem; font-weight: 500;">旋转角度</label>
-                        <div class="rotate-buttons">
-                            <button class="rotate-btn active" data-rotate="0" title="不旋转">0°</button>
-                            <button class="rotate-btn" data-rotate="90" title="顺时针90°">↻ 90°</button>
-                            <button class="rotate-btn" data-rotate="180" title="180°">↺ 180°</button>
-                            <button class="rotate-btn" data-rotate="270" title="顺时针270°/逆时针90°">270°</button>
-                        </div>
-                        <label style="display: block; margin: 1rem 0 0.75rem; font-weight: 500;">翻转</label>
-                        <div class="flip-buttons">
-                            <button class="flip-btn" id="flipH">
-                                <span>↔️</span> 水平翻转
-                            </button>
-                            <button class="flip-btn" id="flipV">
-                                <span>↕️</span> 垂直翻转
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Watermark -->
-                    <div id="watermarkControls" class="hidden">
-                        <div class="control-group">
-                            <label>水印文字</label>
-                            <input type="text" id="wmText" value="PicTool Pro" placeholder="输入水印文字">
-                        </div>
-                        <div class="control-row">
-                            <div class="control-group">
-                                <label>字体大小 <span class="range-value" id="wmSizeValue">40</span></label>
-                                <input type="range" id="wmSize" min="12" max="200" value="40">
+                                <div class="control-label">
+                                    <span>高度</span>
+                                    <span class="value" id="heightValue">0 px</span>
+                                </div>
+                                <input type="range" id="heightSlider" min="100" max="4000" value="1000">
                             </div>
                             <div class="control-group">
-                                <label>透明度 <span class="range-value" id="wmOpacityValue">50%</span></label>
-                                <input type="range" id="wmOpacity" min="10" max="100" value="50">
-                            </div>
-                        </div>
-                        <div class="control-row">
-                            <div class="control-group">
-                                <label>颜色</label>
-                                <input type="color" id="wmColor" value="#ffffff">
-                            </div>
-                            <div class="control-group">
-                                <label>描边颜色</label>
-                                <input type="color" id="wmStrokeColor" value="#000000">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label>位置</label>
-                            <select id="wmPosition">
-                                <option value="center">居中</option>
-                                <option value="top-left">左上</option>
-                                <option value="top-right">右上</option>
-                                <option value="bottom-left">左下</option>
-                                <option value="bottom-right" selected>右下</option>
-                            </select>
-                        </div>
-                        <div class="control-group">
-                            <label>
-                                <input type="checkbox" id="wmStroke"> 启用文字描边
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Text -->
-                    <div id="textControls" class="hidden">
-                        <div class="control-group">
-                            <label>文字内容</label>
-                            <input type="text" id="textContent" placeholder="输入要添加的文字">
-                        </div>
-                        <div class="control-row">
-                            <div class="control-group">
-                                <label>字体大小 <span class="range-value" id="textSizeValue">30</span></label>
-                                <input type="range" id="textSize" min="12" max="200" value="30">
-                            </div>
-                            <div class="control-group">
-                                <label>
-                                    <input type="checkbox" id="textBold"> 加粗
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox" id="maintainAspect" checked style="width: 18px; height: 18px;">
+                                    <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">保持宽高比</span>
                                 </label>
                             </div>
                         </div>
-                        <div class="control-row">
-                            <div class="control-group">
-                                <label>X 位置</label>
-                                <input type="number" id="textX" value="50" min="0">
-                            </div>
-                            <div class="control-group">
-                                <label>Y 位置</label>
-                                <input type="number" id="textY" value="50" min="0">
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Enhance -->
-                    <div id="enhanceControls" class="hidden">
-                        <div class="enhancement-grid">
+                        <!-- Compress Tool -->
+                        <div id="compressPanel" class="tool-panel hidden">
                             <div class="control-group">
-                                <label>亮度 <span class="range-value" id="brightnessValue">100%</span></label>
-                                <input type="range" id="brightness" min="0" max="200" value="100">
-                            </div>
-                            <div class="control-group">
-                                <label>对比度 <span class="range-value" id="contrastValue">100%</span></label>
-                                <input type="range" id="contrast" min="0" max="200" value="100">
-                            </div>
-                            <div class="control-group">
-                                <label>饱和度 <span class="range-value" id="saturateValue">100%</span></label>
-                                <input type="range" id="saturate" min="0" max="200" value="100">
-                            </div>
-                            <div class="control-group">
-                                <label>锐化 <span class="range-value" id="sharpenValue">0</span></label>
-                                <input type="range" id="sharpen" min="0" max="100" value="0">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Border -->
-                    <div id="borderControls" class="hidden">
-                        <div class="control-group">
-                            <label>圆角大小 <span class="range-value" id="borderRadiusValue">0px</span></label>
-                            <input type="range" id="borderRadius" min="0" max="200" value="0">
-                        </div>
-                        <div class="control-group">
-                            <label>边框宽度 <span class="range-value" id="borderWidthValue">0px</span></label>
-                            <input type="range" id="borderWidth" min="0" max="50" value="0">
-                        </div>
-                        <div class="control-row">
-                            <div class="control-group">
-                                <label>边框颜色</label>
-                                <input type="color" id="borderColor" value="#ffffff">
-                            </div>
-                            <div class="control-group">
-                                <label>背景颜色</label>
-                                <input type="color" id="bgColor" value="#ffffff">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Filter -->
-                    <div id="filterControls" class="hidden">
-                        <div class="filter-grid" id="filterGrid"></div>
-                    </div>
-
-                    <!-- Collage -->
-                    <div id="collageControls" class="hidden">
-                        <div class="control-group">
-                            <label>选择布局</label>
-                            <div class="layout-grid">
-                                <div class="layout-option active" data-layout="2x1" title="2图横排">
-                                    <div class="layout-preview" style="grid-template-columns: 1fr 1fr;">
-                                        <div></div><div></div>
-                                    </div>
+                                <div class="control-label">
+                                    <span>压缩质量</span>
+                                    <span class="value" id="qualityValue">80%</span>
                                 </div>
-                                <div class="layout-option" data-layout="1x2" title="2图竖排">
-                                    <div class="layout-preview" style="grid-template-rows: 1fr 1fr;">
-                                        <div></div><div></div>
-                                    </div>
-                                </div>
-                                <div class="layout-option" data-layout="2x2" title="4图网格">
-                                    <div class="layout-preview" style="grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;">
-                                        <div></div><div></div><div></div><div></div>
-                                    </div>
-                                </div>
-                                <div class="layout-option" data-layout="3x3" title="9图网格">
-                                    <div class="layout-preview" style="grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr;">
-                                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-                                    </div>
-                                </div>
+                                <input type="range" id="qualitySlider" min="10" max="100" value="80">
+                            </div>
+                            <div class="control-group">
+                                <p style="font-size: 13px; color: var(--text-secondary);">预计文件大小：<span id="estimatedSize">0 KB</span></p>
                             </div>
                         </div>
-                        <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 1rem;">
-                            已选择 <span id="collageCount">0</span> 张图片
-                        </p>
+
+                        <!-- Format Tool -->
+                        <div id="formatPanel" class="tool-panel hidden">
+                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择输出格式</p>
+                            <div class="format-buttons">
+                                <button class="format-btn active" data-format="jpeg" onclick="selectFormat('jpeg')">JPG</button>
+                                <button class="format-btn" data-format="png" onclick="selectFormat('png')">PNG</button>
+                                <button class="format-btn" data-format="webp" onclick="selectFormat('webp')">WebP</button>
+                            </div>
+                        </div>
+
+                        <!-- Crop Tool -->
+                        <div id="cropPanel" class="tool-panel hidden">
+                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择裁剪比例</p>
+                            <div class="aspect-buttons">
+                                <button class="aspect-btn active" data-ratio="free" onclick="selectAspect('free')">自由</button>
+                                <button class="aspect-btn" data-ratio="1:1" onclick="selectAspect('1:1')">1:1</button>
+                                <button class="aspect-btn" data-ratio="4:3" onclick="selectAspect('4:3')">4:3</button>
+                                <button class="aspect-btn" data-ratio="16:9" onclick="selectAspect('16:9')">16:9</button>
+                                <button class="aspect-btn" data-ratio="9:16" onclick="selectAspect('9:16')">9:16</button>
+                            </div>
+                        </div>
+
+                        <!-- Rotate Tool -->
+                        <div id="rotatePanel" class="tool-panel hidden">
+                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">旋转角度</p>
+                            <div class="rotate-buttons">
+                                <button class="rotate-btn" onclick="rotate(-90)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/>
+                                    </svg>
+                                    <span>-90°</span>
+                                </button>
+                                <button class="rotate-btn" onclick="rotate(90)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/>
+                                    </svg>
+                                    <span>+90°</span>
+                                </button>
+                                <button class="rotate-btn" onclick="rotate(180)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        <path d="M9 12l2 2 4-4"/>
+                                    </svg>
+                                    <span>180°</span>
+                                </button>
+                                <button class="rotate-btn" onclick="flipH()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 3H5a2 2 0 00-2 2v14c0 1.1.9 2 2 2h3"/>
+                                        <path d="M16 3h3a2 2 0 012 2v14a2 2 0 01-2 2h-3"/>
+                                        <path d="M12 20v2M12 14v2M12 8v2M12 2v2"/>
+                                    </svg>
+                                    <span>水平</span>
+                                </button>
+                                <button class="rotate-btn" onclick="flipV()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 8V5a2 2 0 012-2h14a2 2 0 012 2v3"/>
+                                        <path d="M3 16v3a2 2 0 002 2h14a2 2 0 002-2v-3"/>
+                                        <path d="M20 12h2M16 12h2M8 12h2M2 12h2"/>
+                                    </svg>
+                                    <span>垂直</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Enhance Tool -->
+                        <div id="enhancePanel" class="tool-panel hidden">
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>亮度</span>
+                                    <span class="value" id="brightnessValue">0</span>
+                                </div>
+                                <input type="range" id="brightnessSlider" min="-100" max="100" value="0">
+                            </div>
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>对比度</span>
+                                    <span class="value" id="contrastValue">0</span>
+                                </div>
+                                <input type="range" id="contrastSlider" min="-100" max="100" value="0">
+                            </div>
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>饱和度</span>
+                                    <span class="value" id="saturationValue">0</span>
+                                </div>
+                                <input type="range" id="saturationSlider" min="-100" max="100" value="0">
+                            </div>
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>锐化</span>
+                                    <span class="value" id="sharpnessValue">0</span>
+                                </div>
+                                <input type="range" id="sharpnessSlider" min="0" max="100" value="0">
+                            </div>
+                            <button class="btn btn-secondary" onclick="resetEnhance()" style="margin-top: 12px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                                    <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/>
+                                    <path d="M3 3v5h5"/>
+                                </svg>
+                                重置
+                            </button>
+                        </div>
+
+                        <!-- Filter Tool -->
+                        <div id="filterPanel" class="tool-panel hidden">
+                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择滤镜</p>
+                            <div class="filter-grid" id="filterGrid"></div>
+                        </div>
+
+                        <!-- Watermark Tool -->
+                        <div id="watermarkPanel" class="tool-panel hidden">
+                            <div class="text-input-group">
+                                <label>水印文字</label>
+                                <input type="text" id="watermarkText" placeholder="输入水印文字">
+                            </div>
+                            <div class="control-group" style="margin-top: 12px;">
+                                <div class="control-label">
+                                    <span>透明度</span>
+                                    <span class="value" id="watermarkOpacityValue">50%</span>
+                                </div>
+                                <input type="range" id="watermarkOpacitySlider" min="10" max="100" value="50">
+                            </div>
+                            <div class="control-group" style="margin-top: 12px;">
+                                <div class="control-label">
+                                    <span>字体大小</span>
+                                    <span class="value" id="watermarkSizeValue">24px</span>
+                                </div>
+                                <input type="range" id="watermarkSizeSlider" min="12" max="72" value="24">
+                            </div>
+                        </div>
+
+                        <!-- Text Tool -->
+                        <div id="textPanel" class="tool-panel hidden">
+                            <div class="text-input-group">
+                                <label>文字内容</label>
+                                <textarea id="textContent" placeholder="输入要添加的文字"></textarea>
+                            </div>
+                            <div class="control-group" style="margin-top: 12px;">
+                                <div class="control-label">
+                                    <span>字体大小</span>
+                                    <span class="value" id="textSizeValue">32px</span>
+                                </div>
+                                <input type="range" id="textSizeSlider" min="12" max="120" value="32">
+                            </div>
+                        </div>
+
+                        <!-- Round Corner Tool -->
+                        <div id="roundPanel" class="tool-panel hidden">
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>圆角大小</span>
+                                    <span class="value" id="radiusValue">0 px</span>
+                                </div>
+                                <input type="range" id="radiusSlider" min="0" max="200" value="0">
+                            </div>
+                            <div class="control-group" style="margin-top: 12px;">
+                                <div class="control-label">
+                                    <span>边框宽度</span>
+                                    <span class="value" id="borderWidthValue">0 px</span>
+                                </div>
+                                <input type="range" id="borderWidthSlider" min="0" max="20" value="0">
+                            </div>
+                            <div class="control-group" style="margin-top: 12px;">
+                                <div class="control-label">
+                                    <span>边框颜色</span>
+                                </div>
+                                <input type="color" id="borderColor" value="#ffffff" style="width: 60px; height: 40px; border: none; border-radius: 8px; cursor: pointer;">
+                            </div>
+                        </div>
+
+                        <!-- Collage Tool -->
+                        <div id="collagePanel" class="tool-panel hidden">
+                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择拼图布局</p>
+                            <div class="aspect-buttons">
+                                <button class="aspect-btn active" data-layout="2x1" onclick="selectLayout('2x1')">2列</button>
+                                <button class="aspect-btn" data-layout="2x2" onclick="selectLayout('2x2')">2x2</button>
+                                <button class="aspect-btn" data-layout="3x1" onclick="selectLayout('3x1')">3列</button>
+                                <button class="aspect-btn" data-layout="1x2" onclick="selectLayout('1x2')">2行</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Batch -->
-                    <div id="batchControls" class="hidden">
-                        <div class="control-group">
-                            <label>批量操作</label>
-                            <select id="batchAction">
-                                <option value="compress">压缩图片</option>
-                                <option value="convert">转换格式</option>
-                                <option value="resize">调整尺寸</option>
-                                <option value="watermark">添加水印</option>
-                                <option value="rotate">旋转翻转</option>
-                            </select>
-                        </div>
-                        <div class="control-group" id="batchFormatGroup">
-                            <label>目标格式（批量转换）</label>
-                            <select id="batchFormat">
-                                <option value="image/jpeg">JPG</option>
-                                <option value="image/png">PNG</option>
-                                <option value="image/webp">WEBP</option>
-                            </select>
-                        </div>
+                    <!-- Action Bar -->
+                    <div class="action-bar" style="margin-top: 20px;">
+                        <button class="btn btn-secondary" onclick="resetCanvas()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            重置
+                        </button>
+                        <button class="btn btn-primary" onclick="downloadImage()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                <polyline points="7,10 12,15 17,10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            下载图片
+                        </button>
                     </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="action-bar">
-                    <button class="btn btn-primary" id="processBtn">⚡ 开始处理</button>
-                    <button class="btn btn-success hidden" id="downloadBtn">💾 下载图片</button>
-                    <button class="btn btn-success hidden" id="downloadAllBtn">📦 打包下载</button>
-                    <button class="btn btn-secondary" id="resetBtn">🔄 重新选择</button>
                 </div>
             </div>
-        </main>
-    </div>
+        </section>
+    </main>
 
-    <!-- Loading -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <p>正在处理中...</p>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>PicTool Pro v3.0 · 纯前端本地处理 · 保护隐私 · <a href="https://github.com/LINEXIANSEN/LPicTool" target="_blank">GitHub</a></p>
+    </footer>
 
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <footer>
-        <p>PicTool Pro v3.0 | 免费在线图片处理工具 | 本地处理，保护隐私</p>
-        <p style="margin-top: 0.5rem;">
-            <a href="index.html">🏠 首页</a> | <a href="pictool-v2.html">📦 v2.0 版本</a>
-        </p>
-    </footer>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
 
     <script>
-        // ===================== State =====================
-        let currentTool = 'compress';
+        // State
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
         let originalImage = null;
-        let originalFile = null;
-        let processedCanvas = null;
-        let collageImages = [];
-        let batchFiles = [];
+        let originalFileName = 'image';
+        let currentFormat = 'jpeg';
+        let currentAspect = 'free';
+        let currentFilter = 'none';
         let currentRotation = 0;
-        let flipH = false;
-        let flipV = false;
+        let currentFlipH = false;
+        let currentFlipV = false;
+        let currentLayout = '2x1';
+        let batchImages = [];
+        let filters = [
+            { name: '原图', filter: 'none' },
+            { name: '鲜明', filter: 'saturate(1.3) contrast(1.1)' },
+            { name: '柔美', filter: 'sepia(0.2) brightness(1.1)' },
+            { name: '复古', filter: 'sepia(0.5) contrast(0.9)' },
+            { name: '冷色', filter: 'hue-rotate(20deg) saturate(0.9)' },
+            { name: '暖色', filter: 'sepia(0.3) saturate(1.2)' },
+            { name: '黑白', filter: 'grayscale(1)' },
+            { name: '高对比', filter: 'contrast(1.5)' },
+            { name: '淡雅', filter: 'brightness(1.1) saturate(0.85)' },
+            { name: '胶片', filter: 'contrast(1.1) saturate(1.1) sepia(0.2)' }
+        ];
 
-        // ===================== Tool Configs =====================
-        const toolConfigs = {
-            compress: { title: '🗜️ 图片压缩', desc: '智能压缩图片大小，在保持画质的同时减少文件体积', controls: 'compressControls', multi: false },
-            convert: { title: '🔄 格式转换', desc: '将图片转换为不同格式，支持 JPG、PNG、WEBP 互转', controls: 'convertControls', multi: false },
-            resize: { title: '📐 尺寸调整', desc: '修改图片尺寸，支持自定义宽高和保持比例', controls: 'resizeControls', multi: false },
-            crop: { title: '✂️ 智能裁剪', desc: '按比例裁剪图片，支持多种社交媒体预设比例', controls: 'cropControls', multi: false },
-            rotate: { title: '↻ 旋转翻转', desc: '旋转图片角度，或进行水平/垂直翻转', controls: 'rotateControls', multi: false },
-            watermark: { title: '💧 添加水印', desc: '为图片添加文字水印，支持自定义样式和位置', controls: 'watermarkControls', multi: false },
-            text: { title: '📝 添加文字', desc: '在图片上添加文字标注', controls: 'textControls', multi: false },
-            enhance: { title: '✨ 图片增强', desc: '调整图片的亮度、对比度、饱和度和锐化程度', controls: 'enhanceControls', multi: false },
-            border: { title: '🖼️ 边框圆角', desc: '为图片添加圆角和边框效果', controls: 'borderControls', multi: false },
-            filter: { title: '🎨 滤镜效果', desc: '为图片添加各种滤镜效果，一键美化', controls: 'filterControls', multi: false },
-            collage: { title: '🖼️ 图片拼图', desc: '将多张图片拼接成一张，支持多种布局', controls: 'collageControls', multi: true },
-            batch: { title: '📦 批量处理', desc: '一次性处理多张图片，提高效率', controls: 'batchControls', multi: true }
-        };
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        }
 
-        // Filter presets
-        const filters = {
-            normal: { name: '原图', filter: 'none' },
-            grayscale: { name: '黑白', filter: 'grayscale(100%)' },
-            sepia: { name: '复古', filter: 'sepia(100%)' },
-            blur: { name: '模糊', filter: 'blur(2px)' },
-            brightness: { name: '明亮', filter: 'brightness(1.2)' },
-            contrast: { name: '高对比', filter: 'contrast(1.3)' },
-            saturate: { name: '鲜艳', filter: 'saturate(1.5)' },
-            invert: { name: '反色', filter: 'invert(100%)' },
-            fade: { name: '褪色', filter: 'contrast(0.9) saturate(0.8) brightness(1.1)' },
-            vintage: { name: '胶片', filter: 'sepia(0.3) contrast(1.1) brightness(0.9)' }
-        };
-
-        // ===================== DOM Elements =====================
-        const uploadZone = document.getElementById('uploadZone');
-        const collageUploadZone = document.getElementById('collageUploadZone');
-        const batchUploadZone = document.getElementById('batchUploadZone');
-        const fileInput = document.getElementById('fileInput');
-        const collageInput = document.getElementById('collageInput');
-        const batchInput = document.getElementById('batchInput');
-        const previewSection = document.getElementById('previewSection');
-        const previewCanvas = document.getElementById('previewCanvas');
-        const collageCanvas = document.getElementById('collageCanvas');
-
-        // ===================== Tool Switching =====================
-        document.querySelectorAll('.tool-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentTool = btn.dataset.tool;
-                switchTool(currentTool);
-            });
-        });
-
-        function switchTool(tool) {
-            const config = toolConfigs[tool];
-            document.querySelector('.tool-header h2').textContent = config.title;
-            document.querySelector('.tool-header p').textContent = config.desc;
-
-            // Show/hide upload zones
-            uploadZone.classList.toggle('hidden', config.multi);
-            collageUploadZone.classList.toggle('hidden', tool !== 'collage');
-            batchUploadZone.classList.toggle('hidden', tool !== 'batch');
-
-            // Show/hide preview types
-            document.getElementById('singlePreview').classList.toggle('hidden', tool === 'collage');
-            document.getElementById('collagePreview').classList.toggle('hidden', tool !== 'collage');
-
-            // Show/hide controls
-            document.querySelectorAll('[id$="Controls"]').forEach(el => el.classList.add('hidden'));
-            document.getElementById(config.controls).classList.remove('hidden');
-
-            // Reset
-            previewSection.classList.remove('show');
-            collageImages = [];
-            updateCollageStatus();
-            resetState();
-
-            // Init filter grid
-            if (tool === 'filter' && originalImage) {
-                initFilterGrid();
+        // Load saved theme
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved) {
+                document.documentElement.setAttribute('data-theme', saved);
             }
-        }
+        })();
 
-        function resetState() {
-            originalImage = null;
-            originalFile = null;
-            processedCanvas = null;
-            batchFiles = [];
-            currentRotation = 0;
-            flipH = false;
-            flipV = false;
-            document.getElementById('downloadBtn').classList.add('hidden');
-            document.getElementById('downloadAllBtn').classList.add('hidden');
-        }
-
-        // ===================== File Upload =====================
-        // Main upload
-        uploadZone.addEventListener('click', () => fileInput.click());
-        uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-        uploadZone.addEventListener('drop', e => {
-            e.preventDefault();
-            uploadZone.classList.remove('dragover');
-            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-        });
-        fileInput.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
-
-        // Collage upload
-        collageUploadZone.addEventListener('click', () => collageInput.click());
-        collageInput.addEventListener('change', e => {
-            if (e.target.files.length) handleCollageFiles(Array.from(e.target.files));
-        });
-
-        // Batch upload
-        batchUploadZone.addEventListener('click', () => batchInput.click());
-        batchInput.addEventListener('change', e => {
-            if (e.target.files.length) handleBatchFiles(Array.from(e.target.files));
-        });
-
-        function handleFile(file) {
-            if (!file.type.startsWith('image/')) {
-                showToast('请上传图片文件');
-                return;
-            }
-
-            originalFile = file;
-            const reader = new FileReader();
-
-            reader.onload = e => {
-                const img = new Image();
-                img.onload = () => {
-                    originalImage = img;
-                    showSinglePreview();
-                };
-                img.onerror = () => {
-                    showToast('图片加载失败，请尝试其他格式');
-                };
-                img.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        }
-
-        function showSinglePreview() {
-            previewSection.classList.add('show');
-            document.getElementById('originalImg').src = originalImage.src;
-
-            document.getElementById('originalInfo').innerHTML = `
-                <strong>文件名:</strong> ${originalFile.name}<br>
-                <strong>尺寸:</strong> ${originalImage.width} × ${originalImage.height}px<br>
-                <strong>大小:</strong> ${formatFileSize(originalFile.size)}<br>
-                <strong>格式:</strong> ${getFormatName(originalFile.type)}
-            `;
-
-            // Set default resize values
-            document.getElementById('resizeWidth').value = originalImage.width;
-            document.getElementById('resizeHeight').value = originalImage.height;
-
-            // Reset rotation
-            currentRotation = 0;
-            flipH = false;
-            flipV = false;
-            document.querySelectorAll('.rotate-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.rotate-btn[data-rotate="0"]').classList.add('active');
-
-            processImage();
-        }
-
-        // ===================== Collage Handling =====================
-        function handleCollageFiles(files) {
-            const maxFiles = 9;
-            files.slice(0, maxFiles).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    const img = new Image();
-                    img.onload = () => {
-                        collageImages.push({ img, file });
-                        updateCollageStatus();
-                        if (collageImages.length >= 2) doCollage();
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function updateCollageStatus() {
-            const layouts = {
-                '2x1': 2, '1x2': 2, '2x2': 4, '3x3': 9
-            };
-            const layout = document.querySelector('.layout-option.active')?.dataset.layout || '2x1';
-            const need = layouts[layout] || 2;
-            document.getElementById('collageCount').textContent = collageImages.length;
-        }
-
-        document.querySelectorAll('.layout-option').forEach(opt => {
-            opt.addEventListener('click', () => {
-                document.querySelectorAll('.layout-option').forEach(o => o.classList.remove('active'));
-                opt.classList.add('active');
-                updateCollageStatus();
-                if (collageImages.length >= 2) doCollage();
-            });
-        });
-
-        // ===================== Batch Handling =====================
-        function handleBatchFiles(files) {
-            const list = document.getElementById('batchList');
-            list.classList.remove('hidden');
-            list.innerHTML = '';
-            previewSection.classList.add('show');
-
-            files.forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    const img = new Image();
-                    img.onload = () => {
-                        const item = document.createElement('div');
-                        item.className = 'batch-item';
-                        item.innerHTML = `
-                            <img src="${img.src}" alt="">
-                            <div class="info">
-                                <div>${file.name}</div>
-                                <div style="color: var(--text-light); font-size: 0.8rem;">${formatFileSize(file.size)}</div>
-                            </div>
-                            <span class="status" id="batch-status-${index}">待处理</span>
-                        `;
-                        list.appendChild(item);
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            });
-
-            batchFiles = files;
-        }
-
-        // ===================== Image Processing =====================
-        document.getElementById('processBtn').addEventListener('click', processImage);
-
-        function processImage() {
-            if (!originalImage && currentTool !== 'collage') return;
-
-            showLoading(true);
-            setTimeout(() => {
-                switch (currentTool) {
-                    case 'compress': doCompress(); break;
-                    case 'convert': doConvert(); break;
-                    case 'resize': doResize(); break;
-                    case 'crop': doCrop(); break;
-                    case 'rotate': doRotate(); break;
-                    case 'watermark': doWatermark(); break;
-                    case 'text': doText(); break;
-                    case 'enhance': doEnhance(); break;
-                    case 'border': doBorder(); break;
-                    case 'filter': doFilter(); break;
-                    case 'collage': doCollage(); break;
-                    case 'batch': doBatch(); break;
-                }
-                showLoading(false);
-            }, 50);
-        }
-
-        function doCompress() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-            const quality = parseInt(document.getElementById('quality').value) / 100;
-            const maxWidth = parseInt(document.getElementById('maxWidth').value);
-
-            let w = originalImage.width, h = originalImage.height;
-            if (w > maxWidth) { h = h * maxWidth / w; w = maxWidth; }
-
-            canvas.width = w; canvas.height = h;
-            ctx.drawImage(originalImage, 0, 0, w, h);
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), 'image/jpeg', quality);
-        }
-
-        function doConvert() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-            const format = document.getElementById('targetFormat').value;
-            const quality = parseInt(document.getElementById('convertQuality').value) / 100;
-
-            canvas.width = originalImage.width; canvas.height = originalImage.height;
-            ctx.drawImage(originalImage, 0, 0);
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), format, quality);
-        }
-
-        function doResize() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-            let w = parseInt(document.getElementById('resizeWidth').value);
-            let h = parseInt(document.getElementById('resizeHeight').value);
-            const keepRatio = document.getElementById('keepRatio').checked;
-
-            if (keepRatio) {
-                const ratio = Math.min(w / originalImage.width, h / originalImage.height);
-                w = originalImage.width * ratio;
-                h = originalImage.height * ratio;
-            }
-
-            canvas.width = w; canvas.height = h;
-            ctx.drawImage(originalImage, 0, 0, w, h);
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function doCrop() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-            const ratio = document.getElementById('cropRatio').value;
-
-            let w = originalImage.width, h = originalImage.height, x = 0, y = 0;
-
-            if (ratio !== 'free') {
-                const [rw, rh] = ratio.split(':').map(Number);
-                const targetRatio = rw / rh;
-                const currentRatio = w / h;
-
-                if (currentRatio > targetRatio) {
-                    w = h * targetRatio;
-                    x = (originalImage.width - w) / 2;
-                } else {
-                    h = w / targetRatio;
-                    y = (originalImage.height - h) / 2;
-                }
-            }
-
-            canvas.width = w; canvas.height = h;
-            ctx.drawImage(originalImage, x, y, w, h, 0, 0, w, h);
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function doRotate() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-
-            const angle = (currentRotation * Math.PI) / 180;
-            const cos = Math.abs(Math.cos(angle));
-            const sin = Math.abs(Math.sin(angle));
-
-            let newW = originalImage.width, newH = originalImage.height;
-            if (currentRotation === 90 || currentRotation === 270) {
-                newW = originalImage.height;
-                newH = originalImage.width;
-            }
-
-            canvas.width = newW; canvas.height = newH;
-            ctx.translate(newW / 2, newH / 2);
-            ctx.rotate(angle);
-            ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
-            ctx.drawImage(originalImage, -originalImage.width / 2, -originalImage.height / 2);
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function doWatermark() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-
-            canvas.width = originalImage.width; canvas.height = originalImage.height;
-            ctx.drawImage(originalImage, 0, 0);
-
-            const text = document.getElementById('wmText').value || 'PicTool Pro';
-            const size = parseInt(document.getElementById('wmSize').value);
-            const opacity = parseInt(document.getElementById('wmOpacity').value) / 100;
-            const color = document.getElementById('wmColor').value;
-            const strokeColor = document.getElementById('wmStrokeColor').value;
-            const position = document.getElementById('wmPosition').value;
-            const stroke = document.getElementById('wmStroke').checked;
-
-            ctx.font = `bold ${size}px Arial, sans-serif`;
-            ctx.globalAlpha = opacity;
-            ctx.fillStyle = color;
-            if (stroke) {
-                ctx.strokeStyle = strokeColor;
-                ctx.lineWidth = size / 15;
-                ctx.strokeText(text, 0, 0);
-            }
-
-            const metrics = ctx.measureText(text);
-            const textW = metrics.width;
-            const textH = size;
-            let tx, ty;
-
-            switch (position) {
-                case 'center': tx = (canvas.width - textW) / 2; ty = canvas.height / 2 + textH / 4; break;
-                case 'top-left': tx = 20; ty = textH + 20; break;
-                case 'top-right': tx = canvas.width - textW - 20; ty = textH + 20; break;
-                case 'bottom-left': tx = 20; ty = canvas.height - 20; break;
-                case 'bottom-right': tx = canvas.width - textW - 20; ty = canvas.height - 20; break;
-            }
-
-            ctx.fillText(text, tx, ty);
-            ctx.globalAlpha = 1;
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function doText() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-
-            canvas.width = originalImage.width; canvas.height = originalImage.height;
-            ctx.drawImage(originalImage, 0, 0);
-
-            const text = document.getElementById('textContent').value;
-            if (!text) {
-                showProcessed(canvas, null);
-                return;
-            }
-
-            const size = parseInt(document.getElementById('textSize').value);
-            const bold = document.getElementById('textBold').checked;
-            const x = parseInt(document.getElementById('textX').value);
-            const y = parseInt(document.getElementById('textY').value);
-
-            ctx.font = `${bold ? 'bold ' : ''}${size}px Arial, sans-serif`;
-            ctx.fillStyle = '#000000';
-            ctx.fillText(text, x, y);
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function doEnhance() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-
-            const brightness = parseInt(document.getElementById('brightness').value) / 100;
-            const contrast = parseInt(document.getElementById('contrast').value) / 100;
-            const saturate = parseInt(document.getElementById('saturate').value) / 100;
-
-            canvas.width = originalImage.width; canvas.height = originalImage.height;
-            ctx.filter = `brightness(${brightness}) contrast(${contrast}) saturate(${saturate})`;
-            ctx.drawImage(originalImage, 0, 0);
-            ctx.filter = 'none';
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function doBorder() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-
-            const borderRadius = parseInt(document.getElementById('borderRadius').value);
-            const borderWidth = parseInt(document.getElementById('borderWidth').value);
-            const borderColor = document.getElementById('borderColor').value;
-            const bgColor = document.getElementById('bgColor').value;
-
-            // Create rounded image first
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = originalImage.width; tempCanvas.height = originalImage.height;
-            const tempCtx = tempCanvas.getContext('2d');
-
-            if (borderRadius > 0) {
-                roundedRect(tempCtx, 0, 0, originalImage.width, originalImage.height, borderRadius);
-                tempCtx.clip();
-            }
-            tempCtx.drawImage(originalImage, 0, 0);
-
-            // Calculate final size
-            const finalW = originalImage.width + borderWidth * 2;
-            const finalH = originalImage.height + borderWidth * 2;
-
-            canvas.width = finalW; canvas.height = finalH;
-
-            // Fill background
-            ctx.fillStyle = bgColor;
-            ctx.fillRect(0, 0, finalW, finalH);
-
-            // Draw border
-            if (borderWidth > 0 && borderRadius > 0) {
-                ctx.fillStyle = borderColor;
-                roundedRect(ctx, 0, 0, finalW, finalH, borderRadius + borderWidth);
-                ctx.fill();
-                ctx.fillStyle = bgColor;
-                roundedRect(ctx, borderWidth, borderWidth, finalW - borderWidth * 2, finalH - borderWidth * 2, borderRadius);
-                ctx.fill();
-            }
-
-            // Draw image
-            ctx.drawImage(tempCanvas, borderWidth, borderWidth);
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function roundedRect(ctx, x, y, w, h, r) {
-            ctx.beginPath();
-            ctx.moveTo(x + r, y);
-            ctx.lineTo(x + w - r, y);
-            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-            ctx.lineTo(x + w, y + h - r);
-            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-            ctx.lineTo(x + r, y + h);
-            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-            ctx.lineTo(x, y + r);
-            ctx.quadraticCurveTo(x, y, x + r, y);
-            ctx.closePath();
-        }
-
-        function doFilter() {
-            const canvas = createCanvas();
-            const ctx = canvas.getContext('2d');
-
-            const activeFilter = document.querySelector('.filter-option.active');
-            const filterKey = activeFilter?.dataset.filter || 'normal';
-
-            canvas.width = originalImage.width; canvas.height = originalImage.height;
-            ctx.filter = filters[filterKey].filter;
-            ctx.drawImage(originalImage, 0, 0);
-            ctx.filter = 'none';
-
-            canvas.toBlob(blob => showProcessed(canvas, blob), originalFile?.type || 'image/png', 0.9);
-        }
-
-        function initFilterGrid() {
-            const grid = document.getElementById('filterGrid');
-            if (grid.children.length > 0) return;
-
-            Object.entries(filters).forEach(([key, f]) => {
-                const div = document.createElement('div');
-                div.className = 'filter-option' + (key === 'normal' ? ' active' : '');
-                div.dataset.filter = key;
-
-                const canvas = document.createElement('canvas');
-                canvas.width = 70; canvas.height = 50;
-                const ctx = canvas.getContext('2d');
-
-                if (originalImage) {
-                    ctx.filter = f.filter;
-                    ctx.drawImage(originalImage, 0, 0, 70, 50);
-                }
-
-                const span = document.createElement('span');
-                span.textContent = f.name;
-
-                div.appendChild(canvas);
-                div.appendChild(span);
-                div.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-option').forEach(el => el.classList.remove('active'));
-                    div.classList.add('active');
-                    processImage();
-                });
-
-                grid.appendChild(div);
-            });
-        }
-
-        function doCollage() {
-            if (collageImages.length < 2) {
-                showToast('请至少选择2张图片');
-                return;
-            }
-
-            const layout = document.querySelector('.layout-option.active')?.dataset.layout || '2x1';
-            const canvas = collageCanvas;
-            const ctx = canvas.getContext('2d');
-
-            const layouts = {
-                '2x1': { cols: 2, rows: 1, w: 1200, h: 600 },
-                '1x2': { cols: 1, rows: 2, w: 600, h: 1200 },
-                '2x2': { cols: 2, rows: 2, w: 1200, h: 1200 },
-                '3x3': { cols: 3, rows: 3, w: 1200, h: 1200 }
-            };
-
-            const config = layouts[layout];
-            canvas.width = config.w; canvas.height = config.h;
-
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, config.w, config.h);
-
-            const gap = 10;
-            const cellW = (config.w - gap * (config.cols + 1)) / config.cols;
-            const cellH = (config.h - gap * (config.rows + 1)) / config.rows;
-
-            collageImages.slice(0, config.cols * config.rows).forEach((item, i) => {
-                const col = i % config.cols;
-                const row = Math.floor(i / config.cols);
-                const x = gap + col * (cellW + gap);
-                const y = gap + row * (cellH + gap);
-
-                const scale = Math.min(cellW / item.img.width, cellH / item.img.height);
-                const w = item.img.width * scale;
-                const h = item.img.height * scale;
-                const dx = x + (cellW - w) / 2;
-                const dy = y + (cellH - h) / 2;
-
-                ctx.drawImage(item.img, dx, dy, w, h);
-            });
-
-            document.getElementById('collagePreview').classList.remove('hidden');
-            document.getElementById('downloadBtn').classList.remove('hidden');
-            showToast('拼图已生成！');
-        }
-
-        async function doBatch() {
-            if (batchFiles.length === 0) {
-                showToast('请先选择文件');
-                return;
-            }
-
-            showLoading(true);
-            const action = document.getElementById('batchAction').value;
-            const format = document.getElementById('batchFormat').value;
-
-            for (let i = 0; i < batchFiles.length; i++) {
-                const file = batchFiles[i];
-                const statusEl = document.getElementById(`batch-status-${i}`);
-                if (statusEl) statusEl.textContent = '处理中...';
-
-                await new Promise(resolve => {
-                    const reader = new FileReader();
-                    reader.onload = e => {
-                        const img = new Image();
-                        img.onload = () => {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.width; canvas.height = img.height;
-                            canvas.getContext('2d').drawImage(img, 0, 0);
-
-                            let mimeType = file.type;
-                            if (action === 'convert') mimeType = format;
-
-                            canvas.toBlob(blob => {
-                                if (blob) {
-                                    const url = URL.createObjectURL(blob);
-                                    const a = document.createElement('a');
-                                    a.href = url;
-                                    a.download = `processed_${i + 1}_${file.name.replace(/\.[^.]+$/, '')}.${mimeType.split('/')[1]}`;
-                                    a.click();
-                                    URL.revokeObjectURL(url);
-                                }
-                                if (statusEl) {
-                                    statusEl.textContent = '已完成';
-                                    statusEl.classList.add('done');
-                                }
-                                resolve();
-                            }, mimeType, 0.9);
-                        };
-                        img.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-
-            showLoading(false);
-            showToast('批量处理完成！');
-        }
-
-        function createCanvas() {
-            const existing = document.getElementById('processedCanvas');
-            if (existing) existing.remove();
-            processedCanvas = document.createElement('canvas');
-            processedCanvas.id = 'processedCanvas';
-            return processedCanvas;
-        }
-
-        function showProcessed(canvas, blob) {
-            processedCanvas = canvas;
-            previewCanvas.width = canvas.width;
-            previewCanvas.height = canvas.height;
-            previewCanvas.getContext('2d').drawImage(canvas, 0, 0);
-
-            let infoHTML = `<strong>尺寸:</strong> ${canvas.width} × ${canvas.height}px<br>`;
-            if (blob) {
-                infoHTML += `<strong>大小:</strong> ${formatFileSize(blob.size)}<br>`;
-                if (originalFile) {
-                    const reduction = ((1 - blob.size / originalFile.size) * 100).toFixed(1);
-                    infoHTML += reduction >= 0 ? `<strong>压缩率:</strong> ↓${reduction}%` : `<strong>增加:</strong> ↑${Math.abs(reduction)}%`;
-                }
-            }
-            document.getElementById('processedInfo').innerHTML = infoHTML;
-            document.getElementById('downloadBtn').classList.remove('hidden');
-        }
-
-        // ===================== Rotate Controls =====================
-        document.querySelectorAll('.rotate-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.rotate-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentRotation = parseInt(btn.dataset.rotate);
-                processImage();
-            });
-        });
-
-        document.getElementById('flipH').addEventListener('click', () => {
-            flipH = !flipH;
-            document.getElementById('flipH').classList.toggle('active', flipH);
-            processImage();
-        });
-
-        document.getElementById('flipV').addEventListener('click', () => {
-            flipV = !flipV;
-            document.getElementById('flipV').classList.toggle('active', flipV);
-            processImage();
-        });
-
-        // ===================== Range Input Updates =====================
-        function setupRangeInput(id, valueId, suffix = '') {
-            const input = document.getElementById(id);
-            const value = document.getElementById(valueId);
-            if (input && value) {
-                input.addEventListener('input', () => {
-                    value.textContent = input.value + suffix;
-                    if (originalImage) processImage();
-                });
-            }
-        }
-
-        setupRangeInput('quality', 'qualityValue', '%');
-        setupRangeInput('maxWidth', 'maxWidthValue', 'px');
-        setupRangeInput('convertQuality', 'convertQualityValue', '%');
-        setupRangeInput('wmSize', 'wmSizeValue');
-        setupRangeInput('wmOpacity', 'wmOpacityValue', '%');
-        setupRangeInput('textSize', 'textSizeValue');
-        setupRangeInput('brightness', 'brightnessValue', '%');
-        setupRangeInput('contrast', 'contrastValue', '%');
-        setupRangeInput('saturate', 'saturateValue', '%');
-        setupRangeInput('sharpen', 'sharpenValue');
-        setupRangeInput('borderRadius', 'borderRadiusValue', 'px');
-        setupRangeInput('borderWidth', 'borderWidthValue', 'px');
-
-        // Watermark inputs
-        ['wmText', 'wmColor', 'wmStrokeColor', 'wmPosition', 'wmStroke'].forEach(id => {
-            document.getElementById(id)?.addEventListener('change', () => processImage());
-            document.getElementById(id)?.addEventListener('input', () => processImage());
-        });
-
-        // Text inputs
-        ['textContent', 'textX', 'textY', 'textBold'].forEach(id => {
-            document.getElementById(id)?.addEventListener('change', () => processImage());
-            document.getElementById(id)?.addEventListener('input', () => processImage());
-        });
-
-        // Resize inputs
-        ['resizeWidth', 'resizeHeight', 'keepRatio'].forEach(id => {
-            document.getElementById(id)?.addEventListener('change', () => processImage());
-        });
-
-        // Border inputs
-        ['borderColor', 'bgColor'].forEach(id => {
-            document.getElementById(id)?.addEventListener('change', () => processImage());
-        });
-
-        // ===================== Download =====================
-        document.getElementById('downloadBtn').addEventListener('click', () => {
-            const canvas = currentTool === 'collage' ? collageCanvas : previewCanvas;
-            if (!canvas) return;
-
-            const link = document.createElement('a');
-            link.download = `pictool_${Date.now()}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            showToast('图片已下载！');
-        });
-
-        // Reset
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            previewSection.classList.remove('show');
-            document.getElementById('collagePreview').classList.add('hidden');
-            document.getElementById('batchList').classList.add('hidden');
-            fileInput.value = '';
-            collageInput.value = '';
-            batchInput.value = '';
-            resetState();
-            collageImages = [];
-        });
-
-        // ===================== Utilities =====================
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 B';
-            const k = 1024;
-            const sizes = ['B', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-
-        function getFormatName(mimeType) {
-            const types = {
-                'image/jpeg': 'JPEG',
-                'image/png': 'PNG',
-                'image/webp': 'WebP',
-                'image/gif': 'GIF',
-                'image/heic': 'HEIC',
-                'image/bmp': 'BMP'
-            };
-            return types[mimeType] || mimeType.split('/')[1].toUpperCase();
-        }
-
-        function showLoading(show) {
-            document.getElementById('loadingOverlay').classList.toggle('show', show);
-        }
-
+        // Toast
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -2054,22 +1640,498 @@
             setTimeout(() => toast.classList.remove('show'), 2500);
         }
 
-        // ===================== PWA / Service Worker =====================
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('SW registered'))
-                    .catch(err => console.log('SW registration failed:', err));
+        // Loading
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('show');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('show');
+        }
+
+        // File Upload
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            if (files.length === 0) return;
+            
+            const file = files[0];
+            if (!file.type.startsWith('image/')) {
+                showToast('请上传图片文件');
+                return;
+            }
+
+            originalFileName = file.name.replace(/\.[^/.]+$/, '');
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    originalImage = img;
+                    currentRotation = 0;
+                    currentFlipH = false;
+                    currentFlipV = false;
+                    resetEnhance();
+                    resetSliders();
+                    renderCanvas();
+                    document.getElementById('placeholder').classList.add('hidden');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Canvas Rendering
+        function renderCanvas() {
+            if (!originalImage) return;
+
+            const maxWidth = 800;
+            const maxHeight = 600;
+            let width = originalImage.width;
+            let height = originalImage.height;
+
+            // Apply resize
+            const widthSlider = document.getElementById('widthSlider');
+            const heightSlider = document.getElementById('heightSlider');
+            width = parseInt(widthSlider.value);
+            height = parseInt(heightSlider.value);
+
+            // Handle rotation
+            let renderWidth = width;
+            let renderHeight = height;
+            if (currentRotation === 90 || currentRotation === 270) {
+                renderWidth = height;
+                renderHeight = width;
+            }
+
+            canvas.width = renderWidth;
+            canvas.height = renderHeight;
+
+            ctx.save();
+            
+            // Apply transformations
+            ctx.translate(renderWidth / 2, renderHeight / 2);
+            ctx.rotate((currentRotation * Math.PI) / 180);
+            ctx.scale(currentFlipH ? -1 : 1, currentFlipV ? -1 : 1);
+            
+            // Apply filters
+            let filterString = 'none';
+            if (currentFilter !== 'none') {
+                filterString = currentFilter;
+            }
+            
+            // Apply enhance values
+            const brightness = parseInt(document.getElementById('brightnessSlider').value);
+            const contrast = parseInt(document.getElementById('contrastSlider').value);
+            const saturation = parseInt(document.getElementById('saturationSlider').value);
+            
+            if (brightness !== 0 || contrast !== 0 || saturation !== 0) {
+                const b = 100 + brightness;
+                const c = 100 + contrast;
+                const s = 100 + saturation;
+                filterString = `brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
+            }
+            
+            ctx.filter = filterString === 'none' ? 'none' : filterString;
+            ctx.drawImage(originalImage, -width / 2, -height / 2, width, height);
+            ctx.restore();
+
+            // Update info
+            updateSizeInfo();
+        }
+
+        function updateSizeInfo() {
+            if (!originalImage) return;
+            document.getElementById('widthValue').textContent = canvas.width + ' px';
+            document.getElementById('heightValue').textContent = canvas.height + ' px';
+        }
+
+        // Tool Switching
+        function switchTool(tool) {
+            document.querySelectorAll('.tool-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-tool="${tool}"]`).classList.add('active');
+
+            document.querySelectorAll('.tool-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            document.getElementById(`${tool}Panel`).classList.remove('hidden');
+        }
+
+        // Sliders
+        document.getElementById('widthSlider').addEventListener('input', (e) => {
+            if (document.getElementById('maintainAspect').checked && originalImage) {
+                const ratio = originalImage.width / originalImage.height;
+                document.getElementById('heightSlider').value = Math.round(e.target.value / ratio);
+            }
+            renderCanvas();
+        });
+
+        document.getElementById('heightSlider').addEventListener('input', (e) => {
+            if (document.getElementById('maintainAspect').checked && originalImage) {
+                const ratio = originalImage.width / originalImage.height;
+                document.getElementById('widthSlider').value = Math.round(e.target.value * ratio);
+            }
+            renderCanvas();
+        });
+
+        document.getElementById('qualitySlider').addEventListener('input', (e) => {
+            document.getElementById('qualityValue').textContent = e.target.value + '%';
+            updateEstimatedSize();
+        });
+
+        document.getElementById('brightnessSlider').addEventListener('input', (e) => {
+            document.getElementById('brightnessValue').textContent = e.target.value;
+            renderCanvas();
+        });
+
+        document.getElementById('contrastSlider').addEventListener('input', (e) => {
+            document.getElementById('contrastValue').textContent = e.target.value;
+            renderCanvas();
+        });
+
+        document.getElementById('saturationSlider').addEventListener('input', (e) => {
+            document.getElementById('saturationValue').textContent = e.target.value;
+            renderCanvas();
+        });
+
+        document.getElementById('sharpnessSlider').addEventListener('input', (e) => {
+            document.getElementById('sharpnessValue').textContent = e.target.value;
+            renderCanvas();
+        });
+
+        document.getElementById('watermarkOpacitySlider').addEventListener('input', (e) => {
+            document.getElementById('watermarkOpacityValue').textContent = e.target.value + '%';
+        });
+
+        document.getElementById('watermarkSizeSlider').addEventListener('input', (e) => {
+            document.getElementById('watermarkSizeValue').textContent = e.target.value + 'px';
+        });
+
+        document.getElementById('textSizeSlider').addEventListener('input', (e) => {
+            document.getElementById('textSizeValue').textContent = e.target.value + 'px';
+        });
+
+        document.getElementById('radiusSlider').addEventListener('input', (e) => {
+            document.getElementById('radiusValue').textContent = e.target.value + ' px';
+            applyRoundCorners();
+        });
+
+        document.getElementById('borderWidthSlider').addEventListener('input', (e) => {
+            document.getElementById('borderWidthValue').textContent = e.target.value + ' px';
+            applyRoundCorners();
+        });
+
+        document.getElementById('borderColor').addEventListener('input', (e) => {
+            applyRoundCorners();
+        });
+
+        // Format Selection
+        function selectFormat(format) {
+            currentFormat = format;
+            document.querySelectorAll('.format-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-format="${format}"]`).classList.add('active');
+        }
+
+        // Aspect Selection
+        function selectAspect(aspect) {
+            currentAspect = aspect;
+            document.querySelectorAll('.aspect-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-ratio="${aspect}"]`).classList.add('active');
+        }
+
+        // Layout Selection
+        function selectLayout(layout) {
+            currentLayout = layout;
+            document.querySelectorAll('.aspect-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-layout="${layout}"]`).classList.add('active');
+        }
+
+        // Rotate Functions
+        function rotate(angle) {
+            currentRotation = (currentRotation + angle) % 360;
+            renderCanvas();
+        }
+
+        function flipH() {
+            currentFlipH = !currentFlipH;
+            renderCanvas();
+        }
+
+        function flipV() {
+            currentFlipV = !currentFlipV;
+            renderCanvas();
+        }
+
+        // Reset Functions
+        function resetEnhance() {
+            document.getElementById('brightnessSlider').value = 0;
+            document.getElementById('contrastSlider').value = 0;
+            document.getElementById('saturationSlider').value = 0;
+            document.getElementById('sharpnessSlider').value = 0;
+            document.getElementById('brightnessValue').textContent = '0';
+            document.getElementById('contrastValue').textContent = '0';
+            document.getElementById('saturationValue').textContent = '0';
+            document.getElementById('sharpnessValue').textContent = '0';
+        }
+
+        function resetSliders() {
+            if (originalImage) {
+                document.getElementById('widthSlider').max = originalImage.width;
+                document.getElementById('widthSlider').value = originalImage.width;
+                document.getElementById('heightSlider').max = originalImage.height;
+                document.getElementById('heightSlider').value = originalImage.height;
+            }
+            document.getElementById('qualitySlider').value = 80;
+            document.getElementById('qualityValue').textContent = '80%';
+        }
+
+        function resetCanvas() {
+            if (!originalImage) {
+                showToast('请先上传图片');
+                return;
+            }
+            currentRotation = 0;
+            currentFlipH = false;
+            currentFlipV = false;
+            currentFilter = 'none';
+            resetEnhance();
+            resetSliders();
+            renderCanvas();
+            showToast('已重置');
+        }
+
+        // Filter Preview
+        function initFilterGrid() {
+            const grid = document.getElementById('filterGrid');
+            grid.innerHTML = '';
+            
+            filters.forEach((f, index) => {
+                const item = document.createElement('div');
+                item.className = 'filter-item' + (index === 0 ? ' active' : '');
+                item.dataset.filter = f.filter;
+                
+                const thumb = document.createElement('canvas');
+                thumb.width = 100;
+                thumb.height = 100;
+                const thumbCtx = thumb.getContext('2d');
+                
+                item.appendChild(thumb);
+                
+                const label = document.createElement('span');
+                label.textContent = f.name;
+                item.appendChild(label);
+                
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    currentFilter = f.filter;
+                    renderCanvas();
+                });
+                
+                grid.appendChild(item);
             });
         }
 
-        // Online/Offline status
-        function updateOnlineStatus() {
-            document.getElementById('offlineBadge').classList.toggle('show', !navigator.onLine);
+        // Update Filter Thumbnails
+        function updateFilterThumbs() {
+            if (!originalImage) return;
+            
+            const thumbs = document.querySelectorAll('.filter-item canvas');
+            thumbs.forEach((thumb, index) => {
+                const thumbCtx = thumb.getContext('2d');
+                const filter = filters[index].filter;
+                thumbCtx.filter = filter === 'none' ? 'none' : filter;
+                thumbCtx.drawImage(originalImage, 0, 0, 100, 100);
+            });
         }
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
-        updateOnlineStatus();
+
+        // Apply Round Corners
+        function applyRoundCorners() {
+            if (!canvas) return;
+            
+            const radius = parseInt(document.getElementById('radiusSlider').value);
+            const borderWidth = parseInt(document.getElementById('borderWidthSlider').value);
+            const borderColor = document.getElementById('borderColor').value;
+            
+            if (radius === 0 && borderWidth === 0) {
+                renderCanvas();
+                return;
+            }
+
+            // Create temp canvas
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            // Draw rounded rectangle
+            tempCtx.fillStyle = borderColor;
+            tempCtx.beginPath();
+            roundedRect(tempCtx, 0, 0, canvas.width, canvas.height, radius);
+            tempCtx.fill();
+            
+            // Draw image with clipping
+            tempCtx.globalCompositeOperation = 'destination-in';
+            tempCtx.drawImage(canvas, 0, 0);
+            
+            // Draw border
+            if (borderWidth > 0) {
+                tempCtx.globalCompositeOperation = 'source-over';
+                tempCtx.strokeStyle = borderColor;
+                tempCtx.lineWidth = borderWidth * 2;
+                tempCtx.beginPath();
+                roundedRect(tempCtx, borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth, radius);
+                tempCtx.stroke();
+            }
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(tempCanvas, 0, 0);
+        }
+
+        function roundedRect(ctx, x, y, width, height, radius) {
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        // Update Estimated Size
+        function updateEstimatedSize() {
+            if (!originalImage) return;
+            const quality = parseInt(document.getElementById('qualitySlider').value) / 100;
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.drawImage(canvas, 0, 0);
+            const dataUrl = tempCanvas.toDataURL('image/jpeg', quality);
+            const size = Math.round(dataUrl.length * 0.75);
+            document.getElementById('estimatedSize').textContent = size > 1024 ? (size / 1024).toFixed(1) + ' MB' : size + ' KB';
+        }
+
+        // Download
+        function downloadImage() {
+            if (!canvas || !originalImage) {
+                showToast('请先上传图片');
+                return;
+            }
+
+            showLoading();
+
+            setTimeout(() => {
+                // Apply watermark if text exists
+                const watermarkText = document.getElementById('watermarkText').value;
+                if (watermarkText) {
+                    const opacity = parseInt(document.getElementById('watermarkOpacitySlider').value) / 100;
+                    const size = parseInt(document.getElementById('watermarkSizeSlider').value);
+                    ctx.globalAlpha = opacity;
+                    ctx.font = `${size}px Arial`;
+                    ctx.fillStyle = 'white';
+                    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+                    ctx.lineWidth = 2;
+                    ctx.strokeText(watermarkText, 20, canvas.height - 20);
+                    ctx.fillText(watermarkText, 20, canvas.height - 20);
+                    ctx.globalAlpha = 1;
+                }
+
+                // Apply text if exists
+                const textContent = document.getElementById('textContent').value;
+                if (textContent) {
+                    const size = parseInt(document.getElementById('textSizeSlider').value);
+                    ctx.font = `bold ${size}px Arial`;
+                    ctx.fillStyle = 'white';
+                    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+                    ctx.lineWidth = 3;
+                    ctx.textAlign = 'center';
+                    ctx.strokeText(textContent, canvas.width / 2, canvas.height / 2);
+                    ctx.fillText(textContent, canvas.width / 2, canvas.height / 2);
+                }
+
+                // Apply round corners
+                const radius = parseInt(document.getElementById('radiusSlider').value);
+                const borderWidth = parseInt(document.getElementById('borderWidthSlider').value);
+                const borderColor = document.getElementById('borderColor').value;
+                
+                if (radius > 0 || borderWidth > 0) {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = canvas.width;
+                    tempCanvas.height = canvas.height;
+                    const tempCtx = tempCanvas.getContext('2d');
+                    
+                    tempCtx.fillStyle = borderColor;
+                    tempCtx.beginPath();
+                    roundedRect(tempCtx, 0, 0, canvas.width, canvas.height, radius);
+                    tempCtx.fill();
+                    
+                    tempCtx.globalCompositeOperation = 'destination-in';
+                    tempCtx.drawImage(canvas, 0, 0);
+                    
+                    if (borderWidth > 0) {
+                        tempCtx.globalCompositeOperation = 'source-over';
+                        tempCtx.strokeStyle = borderColor;
+                        tempCtx.lineWidth = borderWidth * 2;
+                        tempCtx.beginPath();
+                        roundedRect(tempCtx, borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth, radius);
+                        tempCtx.stroke();
+                    }
+                    
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(tempCanvas, 0, 0);
+                }
+
+                // Download
+                const quality = parseInt(document.getElementById('qualitySlider').value) / 100;
+                const mimeType = `image/${currentFormat}`;
+                const dataUrl = canvas.toDataURL(mimeType, quality);
+                
+                const link = document.createElement('a');
+                link.download = `${originalFileName}_${currentFormat}.${currentFormat === 'jpeg' ? 'jpg' : currentFormat}`;
+                link.href = dataUrl;
+                link.click();
+
+                hideLoading();
+                showToast('下载成功！');
+            }, 100);
+        }
+
+        // Initialize
+        initFilterGrid();
     </script>
 </body>
 </html>
