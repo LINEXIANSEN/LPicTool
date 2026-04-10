@@ -2,7 +2,7 @@
 
 > 免费在线AI图片处理工具箱 - 压缩、转换、裁剪、水印、滤镜、拼图一站式解决
 
-[🖥️ 在线访问](https://LINEXIANSEN.github.io/AI-Creative-Assets-Platform/) | [📖 文档](https://github.com/LINEXIANSEN/AI-Creative-Assets-Platform/blob/main/README.md)
+[🖥️ 在线访问](https://LINEXIANSEN.github.io/LPicTool/) | [📖 文档](https://github.com/LINEXIANSEN/AI-Creative-Assets-Platform/blob/main/README.md)
 
 ---
 
