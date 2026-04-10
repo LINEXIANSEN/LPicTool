@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicTool Pro - 免费在线AI图片处理工具箱</title>
+    <meta name="description" content="免费在线图片处理工具箱，支持图片压缩、格式转换、裁剪、水印、滤镜、拼图等。完全免费、本地处理、保护隐私、无需注册。">
+    <meta name="keywords" content="图片压缩,在线图片处理,图片格式转换,JPG转PNG,PNG转JPG,WEBP转换,图片裁剪,水印工具,免费图片工具">
+    <meta name="author" content="LINEXIANSEN">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="PicTool Pro - 免费在线AI图片处理工具箱">
+    <meta property="og:description" content="完全免费、本地处理、保护隐私。图片压缩、格式转换、裁剪、水印、滤镜、拼图一站式解决。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PicTool Pro - 免费在线AI图片处理工具箱">
+    <meta name="twitter:description" content="完全免费、本地处理、保护隐私。图片压缩、格式转换、裁剪、水印、滤镜、拼图一站式解决。">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://LINEXIANSEN.github.io/AI-Creative-Assets-Platform/">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        header .logo {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .badges {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Features */
+        .features {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            margin-bottom: 3rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: var(--card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .tool-preview {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .tool-preview .preview-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-preview h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-preview .version {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        .tool-info {
+            padding: 1.5rem 2rem;
+        }
+
+        .tool-info p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text);
+        }
+
+        .tool-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Advantages */
+        .advantages {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .advantage-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .advantage-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .advantage-item p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Stats */
+        .stats {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .stat-item .label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* How to Use */
+        .how-to-use {
+            margin-bottom: 3rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .step::after {
+            content: "→";
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .step::after {
+                display: none;
+            }
+        }
+
+        .step .number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎨</div>
+        <h1>PicTool Pro</h1>
+        <p>免费在线AI图片处理工具箱 — 压缩、转换、裁剪、水印、滤镜、拼图一站式解决</p>
+        <div class="badges">
+            <span class="badge">🆓 完全免费</span>
+            <span class="badge">🔒 隐私保护</span>
+            <span class="badge">⚡ 即用即走</span>
+            <span class="badge">📱 适配移动端</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Stats -->
+        <section class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="number">9+</div>
+                    <div class="label">图片处理功能</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">0</div>
+                    <div class="label">注册账号</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">100%</div>
+                    <div class="label">本地处理</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">∞</div>
+                    <div class="label">免费使用</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Use -->
+        <section class="how-to-use">
+            <h2 class="section-title">🚀 如何使用</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="number">1</div>
+                    <h4>选择工具</h4>
+                    <p>打开 PicTool Pro，选择你需要的功能</p>
+                </div>
+                <div class="step">
+                    <div class="number">2</div>
+                    <h4>上传图片</h4>
+                    <p>拖拽或点击上传，支持多种格式</p>
+                </div>
+                <div class="step">
+                    <div class="number">3</div>
+                    <h4>调整参数</h4>
+                    <p>根据需要调整设置，实时预览效果</p>
+                </div>
+                <div class="step">
+                    <div class="number">4</div>
+                    <h4>下载结果</h4>
+                    <p>点击下载，保存处理后的图片</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools -->
+        <section class="tools-section">
+            <h2 class="section-title">🛠️ 选择你的工具</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-preview">
+                        <div class="preview-icon">✨</div>
+                        <h3>PicTool Pro</h3>
+                        <span class="version">v2.0 最新版</span>
+                    </div>
+                    <div class="tool-info">
+                        <p>全能版图片处理工具，包含所有基础功能，适合大多数用户使用</p>
+                        <ul class="tool-features">
+                            <li>图片压缩（支持质量调节）</li>
+                            <li>格式转换（JPG/PNG/WEBP）</li>
+                            <li>尺寸调整（保持比例）</li>
+                            <li>智能裁剪（多种比例）</li>
+                            <li>添加水印/文字</li>
+                            <li>滤镜效果</li>
+                            <li>图片拼图</li>
+                            <li>批量处理</li>
+                        </ul>
+                        <a href="pictool-v2.html" class="btn btn-primary btn-block">
+                            🚀 立即使用 v2.0
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-preview" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
+                        <div class="preview-icon">📦</div>
+                        <h3>PicTool Classic</h3>
+                        <span class="version" style="background: var(--accent);">v1.0 经典版</span>
+                    </div>
+                    <div class="tool-info">
+                        <p>经典版图片处理工具，界面简洁，适合基础需求</p>
+                        <ul class="tool-features">
+                            <li>图片压缩</li>
+                            <li>格式转换</li>
+                            <li>基础裁剪</li>
+                            <li>简单调整</li>
+                        </ul>
+                        <a href="pic-tool.html" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, var(--accent) 0%, #d97706 100%);">
+                            📦 使用 v1.0
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <h2 class="section-title">✨ 功能特色</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">🗜️</div>
+                    <h3>智能压缩</h3>
+                    <p>在保持画质的前提下，最大程度减小图片体积</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔄</div>
+                    <h3>格式转换</h3>
+                    <p>支持 JPG、PNG、WEBP 等主流格式互相转换</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">✂️</div>
+                    <h3>智能裁剪</h3>
+                    <p>支持多种社交媒体预设比例，一键裁剪</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💧</div>
+                    <h3>水印保护</h3>
+                    <p>为图片添加文字水印，保护你的作品版权</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🎨</div>
+                    <h3>滤镜效果</h3>
+                    <p>一键美化图片，多种滤镜效果可选</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🖼️</div>
+                    <h3>图片拼图</h3>
+                    <p>将多张图片拼接成一张，适合社交媒体分享</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advantages -->
+        <section class="advantages">
+            <h2 class="section-title">💪 我们的优势</h2>
+            <div class="advantages-grid">
+                <div class="advantage-item">
+                    <div class="icon">🔒</div>
+                    <h4>隐私保护</h4>
+                    <p>所有处理在本地完成，图片不会上传到服务器</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="icon">⚡</div>
+                    <h4>即用即走</h4>
+                    <p>无需注册、无需安装，打开浏览器即可使用</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="icon">🆓</div>
+                    <h4>完全免费</h4>
+                    <p>所有功能免费使用，无隐藏收费</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="icon">📱</div>
+                    <h4>响应式设计</h4>
+                    <p>完美适配电脑和手机，随时随地处理图片</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>PicTool Pro</strong> - 免费在线AI图片处理工具箱</p>
+        <p>Made with ❤️ by <a href="https://github.com/LINEXIANSEN">LINEXIANSEN</a></p>
+        <div class="footer-links">
+            <a href="https://github.com/LINEXIANSEN/AI-Creative-Assets-Platform">GitHub 仓库</a>
+            <a href="运营指南.md">运营指南</a>
+            <a href="上线步骤.md">上线步骤</a>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.6; font-size: 0.85rem;">
+            © 2026 PicTool Pro. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PicTool Pro",
+        "description": "免费在线AI图片处理工具箱，支持图片压缩、格式转换、裁剪、水印、滤镜、拼图等",
+        "url": "https://LINEXIANSEN.github.io/AI-Creative-Assets-Platform/",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "featureList": [
+            "图片压缩",
+            "格式转换",
+            "尺寸调整",
+            "智能裁剪",
+            "添加水印",
+            "添加文字",
+            "滤镜效果",
+            "图片拼图",
+            "批量处理"
+        ]
+    }
+    </script>
+</body>
+</html>
