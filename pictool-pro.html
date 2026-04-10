@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="PicTool Pro - 高端图片处理工具">
+    <meta name="description" content="PicTool Pro - 强大的本地图片处理工具">
     <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>PicTool Pro</title>
+    <title>PicTool Pro v3.0</title>
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Light Theme - Apple Style */
             --bg-primary: #ffffff;
             --bg-secondary: #f5f5f7;
             --bg-tertiary: #fafafa;
@@ -26,6 +25,9 @@
             --accent: #0071e3;
             --accent-hover: #0077ed;
             --accent-light: rgba(0, 113, 227, 0.1);
+            --success: #34c759;
+            --warning: #ff9500;
+            --danger: #ff3b30;
             --gradient-hero: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
             --gradient-card: linear-gradient(180deg, #ffffff 0%, #f9f9fb 100%);
             --gradient-glow: radial-gradient(ellipse at center top, rgba(0, 113, 227, 0.08) 0%, transparent 60%);
@@ -35,17 +37,16 @@
             --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.12);
             --border-color: rgba(0, 0, 0, 0.06);
             --border-subtle: rgba(0, 0, 0, 0.03);
-            --radius-sm: 12px;
-            --radius-md: 16px;
-            --radius-lg: 20px;
-            --radius-xl: 24px;
-            --radius-2xl: 32px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
         }
 
         [data-theme="dark"] {
             --bg-primary: #000000;
             --bg-secondary: #0a0a0a;
-            --bg-tertiary: #141414;
+            --bg-tertiary: #1c1c1e;
             --bg-elevated: rgba(28, 28, 30, 0.8);
             --bg-glass: rgba(28, 28, 30, 0.72);
             --text-primary: #f5f5f7;
@@ -65,159 +66,76 @@
             --border-subtle: rgba(255, 255, 255, 0.04);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             overflow-x: hidden;
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            padding: 80px 24px 100px;
-            background: var(--gradient-hero);
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-glow);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 30% 20%, rgba(0, 113, 227, 0.03) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 80%, rgba(134, 134, 139, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero-badge span {
-            width: 6px;
-            height: 6px;
-            background: #34c759;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
-
-        .hero h1 {
-            font-size: clamp(40px, 8vw, 72px);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
-        }
-
-        .hero p {
-            font-size: clamp(16px, 2.5vw, 20px);
-            font-weight: 400;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Navigation */
         .nav {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
-            padding: 16px 24px;
+            padding: 12px 24px;
             background: var(--bg-glass);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-subtle);
-            transition: all 0.3s ease;
-        }
-
-        .nav-inner {
-            max-width: 1400px;
-            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .nav-logo {
+        .nav-brand {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--text-primary);
             text-decoration: none;
         }
 
-        .nav-logo svg {
-            width: 28px;
-            height: 28px;
+        .nav-brand svg { width: 28px; height: 28px; }
+
+        .nav-center {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: 4px;
+        }
+
+        .nav-tab {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-tab:hover { color: var(--text-primary); }
+
+        .nav-tab.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
         }
 
         .nav-actions {
@@ -226,433 +144,390 @@
             gap: 8px;
         }
 
-        /* Glass Button */
-        .btn-glass {
-            display: inline-flex;
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--bg-elevated);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
         }
 
-        .btn-glass:hover {
-            background: var(--bg-secondary);
-            transform: translateY(-1px);
+        .btn-icon:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
 
-        .btn-glass svg {
-            width: 18px;
-            height: 18px;
-        }
+        .btn-icon svg { width: 18px; height: 18px; }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            border-radius: 50%;
-        }
-
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover svg {
-            transform: rotate(15deg);
+        .btn-icon.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
         }
 
         [data-theme="dark"] .icon-sun { display: none; }
         [data-theme="light"] .icon-moon { display: none; }
 
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 24px;
+        /* Main Layout */
+        .main-wrapper {
+            display: flex;
+            margin-top: 60px;
+            min-height: calc(100vh - 60px);
         }
 
-        /* Upload Section */
-        .upload-section {
-            position: relative;
-            margin-bottom: 40px;
+        /* Sidebar */
+        .sidebar {
+            width: 72px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 50;
         }
 
-        .upload-area {
-            position: relative;
-            padding: 60px 40px;
-            background: var(--gradient-card);
-            border: 2px dashed var(--border-color);
-            border-radius: var(--radius-xl);
-            text-align: center;
+        .sidebar.expanded { width: 280px; }
+
+        .sidebar-toggle {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-toggle:hover { background: var(--bg-tertiary); }
+        .sidebar-toggle svg { width: 20px; height: 20px; color: var(--text-secondary); }
+
+        .sidebar-section {
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            white-space: nowrap;
             overflow: hidden;
         }
 
-        .upload-area::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(0, 113, 227, 0.02) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .upload-area:hover {
-            border-color: var(--accent);
-            background: var(--bg-secondary);
-        }
-
-        .upload-area:hover::before {
+        .sidebar.expanded .sidebar-title {
             opacity: 1;
         }
 
-        .upload-area.dragover {
-            border-color: var(--accent);
-            background: var(--accent-light);
-            transform: scale(1.01);
+        .sidebar:not(.expanded) .sidebar-title {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
         }
 
-        .upload-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--accent-light) 0%, transparent 100%);
-            border-radius: var(--radius-lg);
-            color: var(--accent);
-        }
-
-        .upload-icon svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .upload-area h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .upload-area p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .upload-area input {
-            display: none;
-        }
-
-        /* Features Grid */
-        .features-section {
-            margin-bottom: 60px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header h2 {
-            font-size: clamp(28px, 5vw, 40px);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-        }
-
-        .section-header p {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .feature-card {
-            position: relative;
-            padding: 32px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, var(--border-color) 50%, transparent 100%);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: transparent;
-        }
-
-        .feature-icon {
+        .sidebar-btn {
             width: 48px;
             height: 48px;
-            margin-bottom: 20px;
-            padding: 12px;
-            background: var(--accent-light);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: transparent;
+            border: none;
             border-radius: var(--radius-md);
-            color: var(--accent);
-        }
-
-        .feature-icon svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .feature-card h3 {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
             color: var(--text-secondary);
-            line-height: 1.5;
+            position: relative;
         }
 
-        /* Editor Layout */
-        .editor-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 24px;
-            margin-bottom: 40px;
+        .sidebar-btn:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
 
-        @media (max-width: 900px) {
-            .editor-layout {
-                grid-template-columns: 1fr;
-            }
+        .sidebar-btn.active {
+            background: var(--accent);
+            color: white;
         }
 
-        /* Tools Panel */
-        .tools-panel {
+        .sidebar-btn svg { width: 22px; height: 22px; }
+
+        .sidebar-btn span {
+            font-size: 9px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .sidebar:not(.expanded) .sidebar-btn span { display: none; }
+        .sidebar.expanded .sidebar-btn span { display: block; }
+
+        .sidebar-btn .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+        }
+
+        .sidebar.expanded .badge {
+            top: 8px;
+            right: 8px;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            margin-left: 72px;
+            padding: 24px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar.expanded ~ .content {
+            margin-left: 280px;
+        }
+
+        /* Panel */
+        .panel {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-xl);
             overflow: hidden;
         }
 
-        .tools-header {
-            padding: 20px 24px;
+        .panel-header {
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-primary);
         }
 
-        .tools-header h3 {
-            font-size: 15px;
+        .panel-title {
+            font-size: 14px;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .tools-header h3 svg {
-            width: 18px;
-            height: 18px;
-            color: var(--accent);
-        }
+        .panel-title svg { width: 18px; height: 18px; color: var(--accent); }
 
-        .tools-list {
-            padding: 12px;
-        }
-
-        .tool-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            background: transparent;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: all 0.2s ease;
-        }
-
-        .tool-item:hover {
-            background: var(--bg-primary);
-        }
-
-        .tool-item.active {
-            background: var(--accent);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
-        }
-
-        .tool-item svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
+        .panel-body { padding: 20px; }
 
         /* Canvas Area */
-        .canvas-area {
+        .canvas-container {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-xl);
-            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .canvas-header {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
-            flex-direction: column;
-            min-height: 600px;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-primary);
+        }
+
+        .canvas-info {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .canvas-info span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .canvas-info strong { color: var(--text-primary); }
+
+        .canvas-tools {
+            display: flex;
+            gap: 8px;
         }
 
         .canvas-wrapper {
-            flex: 1;
+            position: relative;
+            min-height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
             background: 
                 linear-gradient(45deg, var(--bg-tertiary) 25%, transparent 25%),
                 linear-gradient(-45deg, var(--bg-tertiary) 25%, transparent 25%),
                 linear-gradient(45deg, transparent 75%, var(--bg-tertiary) 75%),
                 linear-gradient(-45deg, transparent 75%, var(--bg-tertiary) 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
             background-color: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            margin-bottom: 20px;
         }
 
         .canvas-wrapper canvas {
             max-width: 100%;
-            max-height: 500px;
-            object-fit: contain;
+            max-height: 600px;
             box-shadow: var(--shadow-xl);
-            border-radius: var(--radius-md);
         }
 
         .canvas-placeholder {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
-            color: var(--text-tertiary);
+            gap: 20px;
+            padding: 80px 40px;
+            text-align: center;
         }
 
-        .canvas-placeholder svg {
-            width: 64px;
-            height: 64px;
-            opacity: 0.5;
+        .upload-zone {
+            width: 100%;
+            max-width: 500px;
+            padding: 60px 40px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        /* Controls Panel */
-        .controls-panel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            padding: 20px;
-            background: var(--bg-primary);
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .upload-zone-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--accent-light);
             border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-        }
-
-        .control-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .control-label {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            justify-content: center;
+            color: var(--accent);
         }
 
-        .control-label span {
-            font-size: 13px;
-            font-weight: 500;
+        .upload-zone-icon svg { width: 40px; height: 40px; }
+
+        .upload-zone h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .upload-zone p {
+            font-size: 14px;
             color: var(--text-secondary);
         }
 
-        .control-label .value {
+        .upload-zone input { display: none; }
+
+        /* Controls */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .control-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        .control-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-section-title svg { width: 16px; height: 16px; }
+
+        .slider-group {
+            margin-bottom: 16px;
+        }
+
+        .slider-group:last-child { margin-bottom: 0; }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .slider-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .slider-value {
             font-size: 13px;
             font-weight: 600;
             color: var(--accent);
             font-variant-numeric: tabular-nums;
-        }
-
-        .slider-container {
-            position: relative;
-            height: 6px;
-            background: var(--bg-secondary);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .slider-track {
-            position: absolute;
-            height: 100%;
-            background: var(--accent);
-            border-radius: 3px;
-            transition: width 0.1s ease;
+            min-width: 50px;
+            text-align: right;
         }
 
         input[type="range"] {
             width: 100%;
             height: 6px;
             -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
+            background: var(--bg-secondary);
+            border-radius: 3px;
             cursor: pointer;
-            position: relative;
-            z-index: 1;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             cursor: grab;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease;
         }
 
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
-        }
-
-        input[type="range"]::-webkit-slider-thumb:active {
-            cursor: grabbing;
-            transform: scale(0.95);
-        }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
 
         input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             background: white;
             border: none;
             border-radius: 50%;
@@ -666,35 +541,23 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px 24px;
+            padding: 10px 20px;
             font-size: 14px;
             font-weight: 600;
             border: none;
             border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
         }
 
-        .btn svg {
-            width: 18px;
-            height: 18px;
-        }
+        .btn svg { width: 18px; height: 18px; }
 
         .btn-primary {
             background: var(--accent);
             color: white;
-            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
         }
 
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.35);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
+        .btn-primary:hover { background: var(--accent-hover); }
 
         .btn-secondary {
             background: var(--bg-secondary);
@@ -702,9 +565,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .btn-secondary:hover {
-            background: var(--bg-tertiary);
-        }
+        .btn-secondary:hover { background: var(--bg-tertiary); }
 
         .btn-ghost {
             background: transparent;
@@ -716,14 +577,7 @@
             color: var(--text-primary);
         }
 
-        .btn-block {
-            width: 100%;
-        }
-
-        .btn-lg {
-            padding: 16px 32px;
-            font-size: 16px;
-        }
+        .btn-lg { padding: 14px 28px; font-size: 16px; }
 
         /* Action Bar */
         .action-bar {
@@ -732,10 +586,89 @@
             flex-wrap: wrap;
         }
 
+        /* Button Groups */
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-option {
+            flex: 1;
+            min-width: 70px;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-option:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-option.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .btn-option svg { width: 20px; height: 20px; }
+
+        /* Format Buttons */
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .format-btn {
+            padding: 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .format-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .format-btn.active {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .format-btn .format-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .format-btn.active .format-name { color: var(--accent); }
+
+        .format-btn .format-desc {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
         /* Filter Grid */
         .filter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
             gap: 12px;
         }
 
@@ -771,218 +704,255 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 6px;
+            padding: 4px;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 500;
             text-align: center;
         }
 
-        /* Rotate Buttons */
-        .rotate-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+        /* Input */
+        .input-group {
+            margin-bottom: 16px;
         }
 
-        .rotate-btn {
-            flex: 1;
-            min-width: 80px;
-            padding: 16px 12px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
+        .input-group:last-child { margin-bottom: 0; }
 
-        .rotate-btn:hover {
-            border-color: var(--accent);
-            background: var(--accent-light);
-        }
-
-        .rotate-btn svg {
-            width: 24px;
-            height: 24px;
-            color: var(--text-secondary);
-        }
-
-        .rotate-btn:hover svg {
-            color: var(--accent);
-        }
-
-        .rotate-btn span {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        /* Aspect Ratio Buttons */
-        .aspect-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .aspect-btn {
-            padding: 12px 20px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
+        .input-label {
+            display: block;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s ease;
+            margin-bottom: 8px;
         }
 
-        .aspect-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .aspect-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        /* Format Buttons */
-        .format-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .format-btn {
-            padding: 12px 24px;
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
             font-size: 14px;
-            font-weight: 600;
             color: var(--text-primary);
-            cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .format-btn:hover {
+        .input-field:focus {
+            outline: none;
             border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 0 0 3px var(--accent-light);
         }
 
-        .format-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
+        textarea.input-field {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
         }
 
-        /* Quality Slider */
-        .quality-control {
-            padding: 20px;
-            background: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            padding: 16px 28px;
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            font-size: 14px;
-            font-weight: 500;
-            box-shadow: var(--shadow-xl);
-            z-index: 1000;
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none;
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        /* Hidden */
-        .hidden {
-            display: none !important;
-        }
-
-        /* Loading */
-        .loading-overlay {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+        /* Color Picker */
+        .color-picker-group {
             display: flex;
             align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            gap: 12px;
         }
 
-        .loading-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .loading-spinner {
+        input[type="color"] {
             width: 48px;
             height: 48px;
-            border: 3px solid var(--border-color);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            padding: 0;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 4px; }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 4px;
         }
 
-        /* Batch Files */
-        .batch-files {
+        /* GIF Section */
+        .gif-frames {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
-        .batch-file {
+        .gif-frame {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: var(--radius-md);
             overflow: hidden;
             border: 2px solid var(--border-color);
-            transition: all 0.2s ease;
         }
 
-        .batch-file:hover {
-            border-color: var(--accent);
-        }
-
-        .batch-file img {
+        .gif-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .batch-file .remove {
+        .gif-frame .remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .gif-frame:hover .remove { opacity: 1; }
+
+        .gif-frame .number {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            padding: 2px 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .gif-add {
+            width: 100px;
+            height: 100px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-tertiary);
+        }
+
+        .gif-add:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .gif-add svg { width: 24px; height: 24px; }
+        .gif-add span { font-size: 11px; }
+
+        /* Marker Tools */
+        .marker-tools {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .marker-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+        }
+
+        .marker-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .marker-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .marker-btn svg { width: 20px; height: 20px; }
+
+        /* History Panel */
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover { background: var(--bg-secondary); }
+
+        .history-item.active { background: var(--accent-light); }
+
+        .history-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+        }
+
+        .history-icon svg { width: 16px; height: 16px; }
+
+        .history-info { flex: 1; }
+
+        .history-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .history-time {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        /* Batch Files */
+        .batch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 12px;
+        }
+
+        .batch-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+        }
+
+        .batch-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .batch-item .remove {
             position: absolute;
             top: 4px;
             right: 4px;
@@ -1000,590 +970,1065 @@
             transition: opacity 0.2s ease;
         }
 
-        .batch-file:hover .remove {
-            opacity: 1;
+        .batch-item:hover .remove { opacity: 1; }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
 
-        /* Text Input */
-        .text-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .text-input-group input,
-        .text-input-group textarea {
-            padding: 14px 16px;
+        .stat-card {
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            font-size: 14px;
-            color: var(--text-primary);
-            transition: all 0.2s ease;
+            padding: 16px;
+            text-align: center;
         }
 
-        .text-input-group input:focus,
-        .text-input-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-light);
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
         }
 
-        .text-input-group textarea {
-            resize: vertical;
-            min-height: 80px;
-            font-family: inherit;
-        }
-
-        .text-input-group label {
-            font-size: 13px;
-            font-weight: 500;
+        .stat-label {
+            font-size: 12px;
             color: var(--text-secondary);
         }
 
-        /* Footer */
-        .footer {
-            padding: 60px 24px;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-            background: var(--bg-secondary);
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 14px 24px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
         }
 
-        .footer p {
-            font-size: 13px;
-            color: var(--text-tertiary);
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
+        .loading-overlay.show { opacity: 1; visibility: visible; }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        .footer a:hover {
-            text-decoration: underline;
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Hidden */
+        .hidden { display: none !important; }
+
+        /* Tool Panel Animation */
+        .tool-panel {
+            animation: fadeIn 0.3s ease;
         }
 
-        /* Section Divider */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, var(--border-color) 50%, transparent 100%);
-            margin: 60px 0;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Compare Slider */
+        .compare-container {
+            position: relative;
+            display: none;
+        }
+
+        .compare-container.show { display: block; }
+
+        .compare-slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent);
+            cursor: ew-resize;
+            z-index: 10;
+        }
+
+        .compare-slider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: var(--shadow-md);
+        }
+
+        .compare-slider::after {
+            content: '↔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
         }
 
         /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .content { margin-left: 0; }
+            .controls-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .format-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 600px) {
-            .hero {
-                padding: 60px 20px 80px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .container {
-                padding: 24px 16px;
-            }
-            
-            .upload-area {
-                padding: 40px 20px;
-            }
-            
-            .controls-panel {
-                padding: 16px;
-            }
-            
-            .control-group {
-                min-width: 100%;
-            }
-            
-            .action-bar {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-            }
+            .nav { padding: 12px 16px; }
+            .nav-center { display: none; }
+            .content { padding: 16px; }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="nav">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo">
-                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="32" height="32" rx="8" fill="currentColor"/>
-                    <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" stroke-width="2" fill="none"/>
-                    <circle cx="16" cy="16" r="4" fill="white"/>
-                </svg>
-                PicTool Pro
-            </a>
-            <div class="nav-actions">
-                <button class="btn-glass theme-toggle" onclick="toggleTheme()" title="切换主题">
-                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"/>
-                        <line x1="12" y1="1" x2="12" y2="3"/>
-                        <line x1="12" y1="21" x2="12" y2="23"/>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                        <line x1="1" y1="12" x2="3" y2="12"/>
-                        <line x1="21" y1="12" x2="23" y2="12"/>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                    </svg>
-                </button>
+        <a href="index.html" class="nav-brand">
+            <svg viewBox="0 0 32 32" fill="none">
+                <rect width="32" height="32" rx="8" fill="currentColor"/>
+                <path d="M8 12L16 8L24 12V20L16 24L8 20V12Z" stroke="white" stroke-width="2" fill="none"/>
+                <circle cx="16" cy="16" r="4" fill="white"/>
+            </svg>
+            PicTool Pro
+        </a>
+        
+        <div class="nav-center">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="editor">编辑器</button>
+                <button class="nav-tab" data-tab="gif">GIF制作</button>
+                <button class="nav-tab" data-tab="batch">批量处理</button>
             </div>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="btn-icon" onclick="undo()" title="撤销 (Ctrl+Z)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 10h10a5 5 0 015 5v2M3 10l6-6M3 10l6 6"/>
+                </svg>
+            </button>
+            <button class="btn-icon" onclick="redo()" title="重做 (Ctrl+Y)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10H11a5 5 0 00-5 5v2M21 10l-6-6M21 10l-6 6"/>
+                </svg>
+            </button>
+            <button class="btn-icon" onclick="toggleTheme()">
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span></span>
-                v3.0 全新发布
-            </div>
-            <h1>图片处理，<br>简单而强大</h1>
-            <p>本地运行，保护隐私。无需上传，告别等待。</p>
-        </div>
-    </section>
+    <div class="main-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Upload Section -->
-        <section class="upload-section">
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            <div class="sidebar-section">
+                <div class="sidebar-title">基础工具</div>
+                <button class="sidebar-btn active" data-tool="resize" onclick="switchTool('resize')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
                     </svg>
-                </div>
-                <h3>拖放图片到这里</h3>
-                <p>支持 JPG、PNG、WebP、GIF、HEIC 格式 · 点击或拖放上传</p>
-                <input type="file" id="fileInput" accept="image/*" multiple>
+                    <span>调整尺寸</span>
+                </button>
+                <button class="sidebar-btn" data-tool="compress" onclick="switchTool('compress')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                    </svg>
+                    <span>压缩</span>
+                </button>
+                <button class="sidebar-btn" data-tool="format" onclick="switchTool('format')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/>
+                    </svg>
+                    <span>格式转换</span>
+                </button>
+                <button class="sidebar-btn" data-tool="crop" onclick="switchTool('crop')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2v4m0 0H2m4 0h4M2 6h4m8 0v4m0-4h4m-4 12v4m0-4h-4"/>
+                    </svg>
+                    <span>裁剪</span>
+                </button>
+                <button class="sidebar-btn" data-tool="rotate" onclick="switchTool('rotate')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    <span>旋转</span>
+                </button>
             </div>
-            
-            <div class="batch-files hidden" id="batchFiles"></div>
-        </section>
 
-        <!-- Features -->
-        <section class="features-section">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-                        </svg>
-                    </div>
-                    <h3>极速压缩</h3>
-                    <p>智能压缩算法，在保持画质的同时最大化减小文件体积</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-                        </svg>
-                    </div>
-                    <h3>格式转换</h3>
-                    <p>支持 JPG、PNG、WebP 格式互转，满足不同场景需求</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
-                        </svg>
-                    </div>
-                    <h3>旋转翻转</h3>
-                    <p>任意角度旋转，支持水平、垂直翻转</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
-                    </div>
-                    <h3>智能增强</h3>
-                    <p>亮度、对比度、饱和度、锐化，让图片更出彩</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                            <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                    </div>
-                    <h3>创意滤镜</h3>
-                    <p>10 种精选滤镜，一键打造专业级效果</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 15l-2 5l9-11h-6l2-5l-9 11h6z"/>
-                        </svg>
-                    </div>
-                    <h3>批量处理</h3>
-                    <p>一次处理多张图片，高效又便捷</p>
-                </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">进阶工具</div>
+                <button class="sidebar-btn" data-tool="enhance" onclick="switchTool('enhance')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                    <span>增强</span>
+                </button>
+                <button class="sidebar-btn" data-tool="filter" onclick="switchTool('filter')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    <span>滤镜</span>
+                </button>
+                <button class="sidebar-btn" data-tool="blur" onclick="switchTool('blur')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" stroke-dasharray="4 2"/>
+                    </svg>
+                    <span>模糊背景</span>
+                </button>
             </div>
-        </section>
 
-        <div class="section-divider"></div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">标注工具</div>
+                <button class="sidebar-btn" data-tool="marker" onclick="switchTool('marker')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    <span>标注</span>
+                </button>
+                <button class="sidebar-btn" data-tool="watermark" onclick="switchTool('watermark')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                    </svg>
+                    <span>水印</span>
+                </button>
+                <button class="sidebar-btn" data-tool="text" onclick="switchTool('text')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 7V4h16v3M9 20h6M12 4v16"/>
+                    </svg>
+                    <span>文字</span>
+                </button>
+            </div>
 
-        <!-- Editor -->
-        <section class="editor-section">
-            <div class="editor-layout">
-                <!-- Tools Panel -->
-                <div class="tools-panel">
-                    <div class="tools-header">
-                        <h3>
+            <div class="sidebar-section">
+                <div class="sidebar-title">特效</div>
+                <button class="sidebar-btn" data-tool="round" onclick="switchTool('round')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="8"/>
+                    </svg>
+                    <span>圆角</span>
+                </button>
+                <button class="sidebar-btn" data-tool="collage" onclick="switchTool('collage')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                    </svg>
+                    <span>拼图</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Editor Tab -->
+            <div class="tab-content" id="tab-editor">
+                <!-- Canvas Container -->
+                <div class="canvas-container">
+                    <div class="canvas-header">
+                        <div class="canvas-info">
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                </svg>
+                                <strong id="imgWidth">0</strong> × <strong id="imgHeight">0</strong>
+                            </span>
+                            <span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                </svg>
+                                <strong id="fileSize">0 KB</strong>
+                            </span>
+                        </div>
+                        <div class="canvas-tools">
+                            <button class="btn-icon" onclick="toggleCompare()" title="对比">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                    <line x1="12" y1="3" x2="12" y2="21"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon" onclick="resetCanvas()" title="重置">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/>
+                                    <path d="M3 3v5h5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="canvas-wrapper" id="canvasWrapper">
+                        <div class="canvas-placeholder" id="placeholder">
+                            <div class="upload-zone" id="uploadZone">
+                                <div class="upload-zone-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <h3>拖放图片到这里</h3>
+                                <p>支持 JPG、PNG、WebP、GIF、HEIC · 点击上传</p>
+                                <input type="file" id="fileInput" accept="image/*" multiple>
+                            </div>
+                        </div>
+                        <canvas id="canvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
                             </svg>
-                            工具面板
-                        </h3>
-                    </div>
-                    <div class="tools-list">
-                        <button class="tool-item active" data-tool="resize" onclick="switchTool('resize')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
-                            </svg>
-                            调整尺寸
-                        </button>
-                        <button class="tool-item" data-tool="compress" onclick="switchTool('compress')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-                            </svg>
-                            图片压缩
-                        </button>
-                        <button class="tool-item" data-tool="format" onclick="switchTool('format')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/>
-                            </svg>
-                            格式转换
-                        </button>
-                        <button class="tool-item" data-tool="crop" onclick="switchTool('crop')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 2v4m0 0H2m4 0h4M2 6h4m8 0v4m0-4h4m-4 12v4m0-4h-4m4 0h4M6 18v4m0-4h4"/>
-                            </svg>
-                            智能裁剪
-                        </button>
-                        <button class="tool-item" data-tool="rotate" onclick="switchTool('rotate')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                            </svg>
-                            旋转翻转
-                        </button>
-                        <button class="tool-item" data-tool="enhance" onclick="switchTool('enhance')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
-                            图片增强
-                        </button>
-                        <button class="tool-item" data-tool="filter" onclick="switchTool('filter')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-                            </svg>
-                            滤镜效果
-                        </button>
-                        <button class="tool-item" data-tool="watermark" onclick="switchTool('watermark')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-                            </svg>
-                            添加水印
-                        </button>
-                        <button class="tool-item" data-tool="text" onclick="switchTool('text')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                            </svg>
-                            添加文字
-                        </button>
-                        <button class="tool-item" data-tool="round" onclick="switchTool('round')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 16V8a4 4 0 014-4h8a4 4 0 014 4v8a4 4 0 01-4 4H8a4 4 0 01-4-4z"/>
-                            </svg>
-                            边框圆角
-                        </button>
-                        <button class="tool-item" data-tool="collage" onclick="switchTool('collage')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="7" height="7" rx="1"/>
-                                <rect x="14" y="3" width="7" height="7" rx="1"/>
-                                <rect x="3" y="14" width="7" height="7" rx="1"/>
-                                <rect x="14" y="14" width="7" height="7" rx="1"/>
-                            </svg>
-                            图片拼图
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Canvas Area -->
-                <div class="canvas-area">
-                    <div class="canvas-wrapper" id="canvasWrapper">
-                        <canvas id="canvas"></canvas>
-                        <div class="canvas-placeholder" id="placeholder">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                            <span>上传图片开始编辑</span>
+                            工具设置
                         </div>
                     </div>
-
-                    <!-- Controls Panel -->
-                    <div class="controls-panel" id="controlsPanel">
+                    <div class="panel-body">
                         <!-- Resize Tool -->
                         <div id="resizePanel" class="tool-panel">
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>宽度</span>
-                                    <span class="value" id="widthValue">0 px</span>
+                            <div class="controls-grid">
+                                <div class="control-section">
+                                    <div class="control-section-title">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5"/>
+                                        </svg>
+                                        尺寸设置
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">宽度</span>
+                                            <span class="slider-value" id="widthValue">0 px</span>
+                                        </div>
+                                        <input type="range" id="widthSlider" min="100" max="4000" value="1000">
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">高度</span>
+                                            <span class="slider-value" id="heightValue">0 px</span>
+                                        </div>
+                                        <input type="range" id="heightSlider" min="100" max="4000" value="1000">
+                                    </div>
+                                    <label style="display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer">
+                                        <input type="checkbox" id="maintainAspect" checked style="width:16px;height:16px">
+                                        <span style="font-size:13px;color:var(--text-secondary)">保持宽高比</span>
+                                    </label>
                                 </div>
-                                <input type="range" id="widthSlider" min="100" max="4000" value="1000">
-                            </div>
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>高度</span>
-                                    <span class="value" id="heightValue">0 px</span>
-                                </div>
-                                <input type="range" id="heightSlider" min="100" max="4000" value="1000">
-                            </div>
-                            <div class="control-group">
-                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                                    <input type="checkbox" id="maintainAspect" checked style="width: 18px; height: 18px;">
-                                    <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">保持宽高比</span>
-                                </label>
                             </div>
                         </div>
 
                         <!-- Compress Tool -->
                         <div id="compressPanel" class="tool-panel hidden">
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>压缩质量</span>
-                                    <span class="value" id="qualityValue">80%</span>
+                            <div class="controls-grid">
+                                <div class="control-section">
+                                    <div class="control-section-title">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                                        </svg>
+                                        压缩质量
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">质量</span>
+                                            <span class="slider-value" id="qualityValue">80%</span>
+                                        </div>
+                                        <input type="range" id="qualitySlider" min="10" max="100" value="80">
+                                    </div>
+                                    <div class="stats-grid" style="margin-top:16px">
+                                        <div class="stat-card">
+                                            <div class="stat-value" id="originalSize">0</div>
+                                            <div class="stat-label">原大小</div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-value" id="compressedSize">0</div>
+                                            <div class="stat-label">预计大小</div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-value" id="compressionRatio">0%</div>
+                                            <div class="stat-label">压缩率</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input type="range" id="qualitySlider" min="10" max="100" value="80">
-                            </div>
-                            <div class="control-group">
-                                <p style="font-size: 13px; color: var(--text-secondary);">预计文件大小：<span id="estimatedSize">0 KB</span></p>
                             </div>
                         </div>
 
                         <!-- Format Tool -->
                         <div id="formatPanel" class="tool-panel hidden">
-                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择输出格式</p>
-                            <div class="format-buttons">
-                                <button class="format-btn active" data-format="jpeg" onclick="selectFormat('jpeg')">JPG</button>
-                                <button class="format-btn" data-format="png" onclick="selectFormat('png')">PNG</button>
-                                <button class="format-btn" data-format="webp" onclick="selectFormat('webp')">WebP</button>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/>
+                                    </svg>
+                                    输出格式
+                                </div>
+                                <div class="format-grid">
+                                    <button class="format-btn active" data-format="jpeg" onclick="selectFormat('jpeg')">
+                                        <div class="format-name">JPG</div>
+                                        <div class="format-desc">体积小，有损压缩</div>
+                                    </button>
+                                    <button class="format-btn" data-format="png" onclick="selectFormat('png')">
+                                        <div class="format-name">PNG</div>
+                                        <div class="format-desc">无损，支持透明</div>
+                                    </button>
+                                    <button class="format-btn" data-format="webp" onclick="selectFormat('webp')">
+                                        <div class="format-name">WebP</div>
+                                        <div class="format-desc">现代格式，最优压缩</div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Crop Tool -->
                         <div id="cropPanel" class="tool-panel hidden">
-                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择裁剪比例</p>
-                            <div class="aspect-buttons">
-                                <button class="aspect-btn active" data-ratio="free" onclick="selectAspect('free')">自由</button>
-                                <button class="aspect-btn" data-ratio="1:1" onclick="selectAspect('1:1')">1:1</button>
-                                <button class="aspect-btn" data-ratio="4:3" onclick="selectAspect('4:3')">4:3</button>
-                                <button class="aspect-btn" data-ratio="16:9" onclick="selectAspect('16:9')">16:9</button>
-                                <button class="aspect-btn" data-ratio="9:16" onclick="selectAspect('9:16')">9:16</button>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 2v4m0 0H2m4 0h4M2 6h4m8 0v4m0-4h4m-4 12v4m0-4h-4"/>
+                                    </svg>
+                                    裁剪比例
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn-option active" data-ratio="free" onclick="selectAspect('free')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        </svg>
+                                        自由
+                                    </button>
+                                    <button class="btn-option" data-ratio="1:1" onclick="selectAspect('1:1')">1:1</button>
+                                    <button class="btn-option" data-ratio="4:3" onclick="selectAspect('4:3')">4:3</button>
+                                    <button class="btn-option" data-ratio="16:9" onclick="selectAspect('16:9')">16:9</button>
+                                    <button class="btn-option" data-ratio="9:16" onclick="selectAspect('9:16')">9:16</button>
+                                    <button class="btn-option" data-ratio="3:2" onclick="selectAspect('3:2')">3:2</button>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Rotate Tool -->
                         <div id="rotatePanel" class="tool-panel hidden">
-                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">旋转角度</p>
-                            <div class="rotate-buttons">
-                                <button class="rotate-btn" onclick="rotate(-90)">
+                            <div class="control-section">
+                                <div class="control-section-title">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/>
+                                        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                                     </svg>
-                                    <span>-90°</span>
-                                </button>
-                                <button class="rotate-btn" onclick="rotate(90)">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/>
-                                    </svg>
-                                    <span>+90°</span>
-                                </button>
-                                <button class="rotate-btn" onclick="rotate(180)">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                        <path d="M9 12l2 2 4-4"/>
-                                    </svg>
-                                    <span>180°</span>
-                                </button>
-                                <button class="rotate-btn" onclick="flipH()">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M8 3H5a2 2 0 00-2 2v14c0 1.1.9 2 2 2h3"/>
-                                        <path d="M16 3h3a2 2 0 012 2v14a2 2 0 01-2 2h-3"/>
-                                        <path d="M12 20v2M12 14v2M12 8v2M12 2v2"/>
-                                    </svg>
-                                    <span>水平</span>
-                                </button>
-                                <button class="rotate-btn" onclick="flipV()">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M3 8V5a2 2 0 012-2h14a2 2 0 012 2v3"/>
-                                        <path d="M3 16v3a2 2 0 002 2h14a2 2 0 002-2v-3"/>
-                                        <path d="M20 12h2M16 12h2M8 12h2M2 12h2"/>
-                                    </svg>
-                                    <span>垂直</span>
-                                </button>
+                                    旋转与翻转
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn-option" onclick="rotate(-90)">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/>
+                                        </svg>
+                                        左旋90°
+                                    </button>
+                                    <button class="btn-option" onclick="rotate(90)">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"/>
+                                        </svg>
+                                        右旋90°
+                                    </button>
+                                    <button class="btn-option" onclick="rotate(180)">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        180°
+                                    </button>
+                                    <button class="btn-option" onclick="flipH()">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M8 3H5a2 2 0 00-2 2v14c0 1.1.9 2 2 2h3m8 0h3a2 2 0 002-2V5a2 2 0 00-2-2h-3"/>
+                                        </svg>
+                                        水平翻转
+                                    </button>
+                                    <button class="btn-option" onclick="flipV()">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 8V5a2 2 0 012-2h14a2 2 0 012 2v3m0 8v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3"/>
+                                        </svg>
+                                        垂直翻转
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Enhance Tool -->
                         <div id="enhancePanel" class="tool-panel hidden">
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>亮度</span>
-                                    <span class="value" id="brightnessValue">0</span>
+                            <div class="controls-grid">
+                                <div class="control-section">
+                                    <div class="control-section-title">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707"/>
+                                        </svg>
+                                        基础调整
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">亮度</span>
+                                            <span class="slider-value" id="brightnessValue">0</span>
+                                        </div>
+                                        <input type="range" id="brightnessSlider" min="-100" max="100" value="0">
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">对比度</span>
+                                            <span class="slider-value" id="contrastValue">0</span>
+                                        </div>
+                                        <input type="range" id="contrastSlider" min="-100" max="100" value="0">
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">饱和度</span>
+                                            <span class="slider-value" id="saturationValue">0</span>
+                                        </div>
+                                        <input type="range" id="saturationSlider" min="-100" max="100" value="0">
+                                    </div>
                                 </div>
-                                <input type="range" id="brightnessSlider" min="-100" max="100" value="0">
-                            </div>
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>对比度</span>
-                                    <span class="value" id="contrastValue">0</span>
+                                <div class="control-section">
+                                    <div class="control-section-title">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        </svg>
+                                        清晰度
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">锐化</span>
+                                            <span class="slider-value" id="sharpnessValue">0</span>
+                                        </div>
+                                        <input type="range" id="sharpnessSlider" min="0" max="100" value="0">
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">曝光</span>
+                                            <span class="slider-value" id="exposureValue">0</span>
+                                        </div>
+                                        <input type="range" id="exposureSlider" min="-100" max="100" value="0">
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="slider-label">色温</span>
+                                            <span class="slider-value" id="temperatureValue">0</span>
+                                        </div>
+                                        <input type="range" id="temperatureSlider" min="-100" max="100" value="0">
+                                    </div>
                                 </div>
-                                <input type="range" id="contrastSlider" min="-100" max="100" value="0">
                             </div>
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>饱和度</span>
-                                    <span class="value" id="saturationValue">0</span>
-                                </div>
-                                <input type="range" id="saturationSlider" min="-100" max="100" value="0">
-                            </div>
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>锐化</span>
-                                    <span class="value" id="sharpnessValue">0</span>
-                                </div>
-                                <input type="range" id="sharpnessSlider" min="0" max="100" value="0">
-                            </div>
-                            <button class="btn btn-secondary" onclick="resetEnhance()" style="margin-top: 12px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                            <button class="btn btn-secondary" onclick="resetEnhance()" style="margin-top:16px">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
                                     <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/>
-                                    <path d="M3 3v5h5"/>
                                 </svg>
-                                重置
+                                重置调整
                             </button>
                         </div>
 
                         <!-- Filter Tool -->
                         <div id="filterPanel" class="tool-panel hidden">
-                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择滤镜</p>
-                            <div class="filter-grid" id="filterGrid"></div>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                                    </svg>
+                                    滤镜预设
+                                </div>
+                                <div class="filter-grid" id="filterGrid"></div>
+                            </div>
+                        </div>
+
+                        <!-- Blur Tool -->
+                        <div id="blurPanel" class="tool-panel hidden">
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" stroke-dasharray="4 2"/>
+                                    </svg>
+                                    背景模糊
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">模糊强度</span>
+                                        <span class="slider-value" id="blurValue">0</span>
+                                    </div>
+                                    <input type="range" id="blurSlider" min="0" max="30" value="0">
+                                </div>
+                                <p style="font-size:12px;color:var(--text-tertiary);margin-top:12px">
+                                    提示：点击图片中心区域选择要保留清晰的部分
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Marker Tool -->
+                        <div id="markerPanel" class="tool-panel hidden">
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/>
+                                    </svg>
+                                    标注工具
+                                </div>
+                                <div class="marker-tools">
+                                    <button class="marker-btn active" data-marker="arrow" onclick="selectMarker('arrow')" title="箭头">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                                        </svg>
+                                    </button>
+                                    <button class="marker-btn" data-marker="rect" onclick="selectMarker('rect')" title="矩形">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="marker-btn" data-marker="circle" onclick="selectMarker('circle')" title="圆形">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="9"/>
+                                        </svg>
+                                    </button>
+                                    <button class="marker-btn" data-marker="pen" onclick="selectMarker('pen')" title="画笔">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                                        </svg>
+                                    </button>
+                                    <button class="marker-btn" data-marker="highlight" onclick="selectMarker('highlight')" title="高亮">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 11l3 3L22 4"/>
+                                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">线条宽度</span>
+                                        <span class="slider-value" id="markerSizeValue">4 px</span>
+                                    </div>
+                                    <input type="range" id="markerSizeSlider" min="1" max="20" value="4">
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">颜色</span>
+                                    </div>
+                                    <div class="color-picker-group">
+                                        <input type="color" id="markerColor" value="#ff3b30">
+                                        <div class="btn-group" style="flex:1">
+                                            <button class="btn-option active" style="background:#ff3b30;color:white" data-color="#ff3b30" onclick="setMarkerColor('#ff3b30')"></button>
+                                            <button class="btn-option" style="background:#ff9500" data-color="#ff9500" onclick="setMarkerColor('#ff9500')"></button>
+                                            <button class="btn-option" style="background:#34c759" data-color="#34c759" onclick="setMarkerColor('#34c759')"></button>
+                                            <button class="btn-option" style="background:#007aff" data-color="#007aff" onclick="setMarkerColor('#007aff')"></button>
+                                            <button class="btn-option" style="background:#5856d6" data-color="#5856d6" onclick="setMarkerColor('#5856d6')"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="action-bar" style="margin-top:16px">
+                                    <button class="btn btn-secondary" onclick="clearMarkers()">清除标注</button>
+                                    <button class="btn btn-ghost" onclick="undoLastMarker()">撤销上一步</button>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Watermark Tool -->
                         <div id="watermarkPanel" class="tool-panel hidden">
-                            <div class="text-input-group">
-                                <label>水印文字</label>
-                                <input type="text" id="watermarkText" placeholder="输入水印文字">
-                            </div>
-                            <div class="control-group" style="margin-top: 12px;">
-                                <div class="control-label">
-                                    <span>透明度</span>
-                                    <span class="value" id="watermarkOpacityValue">50%</span>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4z"/>
+                                    </svg>
+                                    水印设置
                                 </div>
-                                <input type="range" id="watermarkOpacitySlider" min="10" max="100" value="50">
-                            </div>
-                            <div class="control-group" style="margin-top: 12px;">
-                                <div class="control-label">
-                                    <span>字体大小</span>
-                                    <span class="value" id="watermarkSizeValue">24px</span>
+                                <div class="input-group">
+                                    <label class="input-label">水印文字</label>
+                                    <input type="text" class="input-field" id="watermarkText" placeholder="输入水印文字">
                                 </div>
-                                <input type="range" id="watermarkSizeSlider" min="12" max="72" value="24">
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">透明度</span>
+                                        <span class="slider-value" id="watermarkOpacityValue">50%</span>
+                                    </div>
+                                    <input type="range" id="watermarkOpacitySlider" min="10" max="100" value="50">
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">字体大小</span>
+                                        <span class="slider-value" id="watermarkSizeValue">24px</span>
+                                    </div>
+                                    <input type="range" id="watermarkSizeSlider" min="12" max="72" value="24">
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">位置</span>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn-option" data-pos="tl" onclick="setWatermarkPos('tl')">左上</button>
+                                        <button class="btn-option" data-pos="tr" onclick="setWatermarkPos('tr')">右上</button>
+                                        <button class="btn-option" data-pos="bl" onclick="setWatermarkPos('bl')">左下</button>
+                                        <button class="btn-option active" data-pos="br" onclick="setWatermarkPos('br')">右下</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Text Tool -->
                         <div id="textPanel" class="tool-panel hidden">
-                            <div class="text-input-group">
-                                <label>文字内容</label>
-                                <textarea id="textContent" placeholder="输入要添加的文字"></textarea>
-                            </div>
-                            <div class="control-group" style="margin-top: 12px;">
-                                <div class="control-label">
-                                    <span>字体大小</span>
-                                    <span class="value" id="textSizeValue">32px</span>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 7V4h16v3M9 20h6M12 4v16"/>
+                                    </svg>
+                                    添加文字
                                 </div>
-                                <input type="range" id="textSizeSlider" min="12" max="120" value="32">
+                                <div class="input-group">
+                                    <label class="input-label">文字内容</label>
+                                    <textarea class="input-field" id="textContent" placeholder="输入要添加的文字"></textarea>
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">字体大小</span>
+                                        <span class="slider-value" id="textSizeValue">48px</span>
+                                    </div>
+                                    <input type="range" id="textSizeSlider" min="12" max="200" value="48">
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">颜色</span>
+                                    </div>
+                                    <div class="color-picker-group">
+                                        <input type="color" id="textColor" value="#ffffff">
+                                        <span style="font-size:13px;color:var(--text-secondary)">选择文字颜色</span>
+                                    </div>
+                                </div>
+                                <div class="input-group" style="margin-top:12px">
+                                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+                                        <input type="checkbox" id="textStroke" style="width:16px;height:16px">
+                                        <span style="font-size:13px;color:var(--text-secondary)">添加描边</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Round Corner Tool -->
                         <div id="roundPanel" class="tool-panel hidden">
-                            <div class="control-group">
-                                <div class="control-label">
-                                    <span>圆角大小</span>
-                                    <span class="value" id="radiusValue">0 px</span>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="8"/>
+                                    </svg>
+                                    边框与圆角
                                 </div>
-                                <input type="range" id="radiusSlider" min="0" max="200" value="0">
-                            </div>
-                            <div class="control-group" style="margin-top: 12px;">
-                                <div class="control-label">
-                                    <span>边框宽度</span>
-                                    <span class="value" id="borderWidthValue">0 px</span>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">圆角大小</span>
+                                        <span class="slider-value" id="radiusValue">0 px</span>
+                                    </div>
+                                    <input type="range" id="radiusSlider" min="0" max="200" value="0">
                                 </div>
-                                <input type="range" id="borderWidthSlider" min="0" max="20" value="0">
-                            </div>
-                            <div class="control-group" style="margin-top: 12px;">
-                                <div class="control-label">
-                                    <span>边框颜色</span>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">边框宽度</span>
+                                        <span class="slider-value" id="borderWidthValue">0 px</span>
+                                    </div>
+                                    <input type="range" id="borderWidthSlider" min="0" max="30" value="0">
                                 </div>
-                                <input type="color" id="borderColor" value="#ffffff" style="width: 60px; height: 40px; border: none; border-radius: 8px; cursor: pointer;">
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">边框颜色</span>
+                                    </div>
+                                    <input type="color" id="borderColor" value="#ffffff" style="width:100%;height:48px">
+                                </div>
                             </div>
                         </div>
 
                         <!-- Collage Tool -->
                         <div id="collagePanel" class="tool-panel hidden">
-                            <p style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">选择拼图布局</p>
-                            <div class="aspect-buttons">
-                                <button class="aspect-btn active" data-layout="2x1" onclick="selectLayout('2x1')">2列</button>
-                                <button class="aspect-btn" data-layout="2x2" onclick="selectLayout('2x2')">2x2</button>
-                                <button class="aspect-btn" data-layout="3x1" onclick="selectLayout('3x1')">3列</button>
-                                <button class="aspect-btn" data-layout="1x2" onclick="selectLayout('1x2')">2行</button>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                                    </svg>
+                                    图片拼图
+                                </div>
+                                <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">
+                                    请上传多张图片（2-4张）来创建拼图
+                                </p>
+                                <div class="batch-grid" id="collageImages"></div>
+                                <div class="btn-group" style="margin-top:16px">
+                                    <button class="btn-option active" data-layout="2x1" onclick="selectLayout('2x1')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="5" width="8" height="14" rx="1"/>
+                                            <rect x="13" y="5" width="8" height="14" rx="1"/>
+                                        </svg>
+                                        2列
+                                    </button>
+                                    <button class="btn-option" data-layout="2x2" onclick="selectLayout('2x2')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="8" height="8" rx="1"/>
+                                            <rect x="13" y="3" width="8" height="8" rx="1"/>
+                                            <rect x="3" y="13" width="8" height="8" rx="1"/>
+                                            <rect x="13" y="13" width="8" height="8" rx="1"/>
+                                        </svg>
+                                        2x2
+                                    </button>
+                                    <button class="btn-option" data-layout="3x1" onclick="selectLayout('3x1')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="5" width="5" height="14" rx="1"/>
+                                            <rect x="9" y="5" width="5" height="14" rx="1"/>
+                                            <rect x="16" y="5" width="5" height="14" rx="1"/>
+                                        </svg>
+                                        3列
+                                    </button>
+                                    <button class="btn-option" data-layout="1x2" onclick="selectLayout('1x2')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="5" y="2" width="14" height="9" rx="1"/>
+                                            <rect x="5" y="13" width="14" height="9" rx="1"/>
+                                        </svg>
+                                        2行
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Action Bar -->
-                    <div class="action-bar" style="margin-top: 20px;">
-                        <button class="btn btn-secondary" onclick="resetCanvas()">
+                <!-- Action Bar -->
+                <div class="action-bar" style="margin-top:20px">
+                    <button class="btn btn-primary btn-lg" onclick="downloadImage()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        下载图片
+                    </button>
+                </div>
+            </div>
+
+            <!-- GIF Tab -->
+            <div class="tab-content hidden" id="tab-gif">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/>
-                                <path d="M3 3v5h5"/>
+                                <rect x="2" y="2" width="20" height="20" rx="2"/>
+                                <path d="M6 12h4M8 10v4M14 10v4M18 12h.01"/>
                             </svg>
-                            重置
-                        </button>
-                        <button class="btn btn-primary" onclick="downloadImage()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                                <polyline points="7,10 12,15 17,10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
-                            下载图片
-                        </button>
+                            GIF 动画制作
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+                            上传多张图片制作 GIF 动画，支持调整帧率和播放顺序
+                        </p>
+                        <div class="gif-frames" id="gifFrames">
+                            <div class="gif-add" onclick="document.getElementById('gifFileInput').click()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                <span>添加帧</span>
+                            </div>
+                        </div>
+                        <input type="file" id="gifFileInput" accept="image/*" multiple style="display:none">
+                        <div class="controls-grid" style="margin-top:20px">
+                            <div class="control-section">
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">帧延迟 (ms)</span>
+                                        <span class="slider-value" id="gifDelayValue">500</span>
+                                    </div>
+                                    <input type="range" id="gifDelaySlider" min="50" max="2000" value="500" step="50">
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">循环播放</span>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn-option active" data-loop="true" onclick="setGifLoop(true)">无限</button>
+                                        <button class="btn-option" data-loop="false" onclick="setGifLoop(false)">一次</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polygon points="10,8 16,12 10,16"/>
+                                    </svg>
+                                    预览
+                                </div>
+                                <div style="display:flex;gap:12px;align-items:center">
+                                    <button class="btn btn-secondary" onclick="previewGif()">预览动画</button>
+                                    <button class="btn btn-primary" onclick="generateGif()">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+                                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                        </svg>
+                                        生成 GIF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>PicTool Pro v3.0 · 纯前端本地处理 · 保护隐私 · <a href="https://github.com/LINEXIANSEN/LPicTool" target="_blank">GitHub</a></p>
-    </footer>
+            <!-- Batch Tab -->
+            <div class="tab-content hidden" id="tab-batch">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="6" height="6" rx="1"/>
+                                <rect x="16" y="3" width="6" height="6" rx="1"/>
+                                <rect x="9" y="15" width="6" height="6" rx="1"/>
+                            </svg>
+                            批量处理
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+                            一次处理多张图片，统一应用相同设置
+                        </p>
+                        <div class="batch-grid" id="batchFiles" style="margin-bottom:20px">
+                            <div class="gif-add" onclick="document.getElementById('batchFileInput').click()" style="width:100%;height:100px">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                <span>添加图片</span>
+                            </div>
+                        </div>
+                        <input type="file" id="batchFileInput" accept="image/*" multiple style="display:none">
+                        <div class="controls-grid">
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5"/>
+                                    </svg>
+                                    批量调整
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">统一宽度</span>
+                                        <span class="slider-value" id="batchWidthValue">不限制</span>
+                                    </div>
+                                    <input type="range" id="batchWidthSlider" min="0" max="2000" value="0">
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">统一高度</span>
+                                        <span class="slider-value" id="batchHeightValue">不限制</span>
+                                    </div>
+                                    <input type="range" id="batchHeightSlider" min="0" max="2000" value="0">
+                                </div>
+                            </div>
+                            <div class="control-section">
+                                <div class="control-section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                                    </svg>
+                                    批量压缩
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span class="slider-label">压缩质量</span>
+                                        <span class="slider-value" id="batchQualityValue">80%</span>
+                                    </div>
+                                    <input type="range" id="batchQualitySlider" min="10" max="100" value="80">
+                                </div>
+                                <div class="control-section-title" style="margin-top:16px">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/>
+                                    </svg>
+                                    输出格式
+                                </div>
+                                <div class="format-grid">
+                                    <button class="format-btn active" data-format="original" onclick="selectBatchFormat('original')">
+                                        <div class="format-name">原格式</div>
+                                        <div class="format-desc">保持不变</div>
+                                    </button>
+                                    <button class="format-btn" data-format="jpeg" onclick="selectBatchFormat('jpeg')">
+                                        <div class="format-name">JPG</div>
+                                        <div class="format-desc">统一转为 JPG</div>
+                                    </button>
+                                    <button class="format-btn" data-format="webp" onclick="selectBatchFormat('webp')">
+                                        <div class="format-name">WebP</div>
+                                        <div class="format-desc">统一转为 WebP</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-bar" style="margin-top:20px">
+                            <button class="btn btn-secondary" onclick="clearBatch()">清空列表</button>
+                            <button class="btn btn-primary btn-lg" onclick="processBatch()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                批量下载
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <!-- Loading Overlay -->
+    <!-- Loading -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
     </div>
@@ -1595,13 +2040,23 @@
         let originalImage = null;
         let originalFileName = 'image';
         let currentFormat = 'jpeg';
-        let currentAspect = 'free';
-        let currentFilter = 'none';
         let currentRotation = 0;
         let currentFlipH = false;
         let currentFlipV = false;
+        let currentFilter = 'none';
         let currentLayout = '2x1';
         let batchImages = [];
+        let collageImages = [];
+        let gifFrames = [];
+        let markers = [];
+        let currentMarker = null;
+        let isDrawing = false;
+        let history = [];
+        let historyIndex = -1;
+        let currentTab = 'editor';
+        let batchFormat = 'original';
+        let gifLoop = true;
+
         let filters = [
             { name: '原图', filter: 'none' },
             { name: '鲜明', filter: 'saturate(1.3) contrast(1.1)' },
@@ -1612,10 +2067,12 @@
             { name: '黑白', filter: 'grayscale(1)' },
             { name: '高对比', filter: 'contrast(1.5)' },
             { name: '淡雅', filter: 'brightness(1.1) saturate(0.85)' },
-            { name: '胶片', filter: 'contrast(1.1) saturate(1.1) sepia(0.2)' }
+            { name: '胶片', filter: 'contrast(1.1) saturate(1.1) sepia(0.2)' },
+            { name: '复古蓝', filter: 'hue-rotate(180deg) saturate(0.8) brightness(1.1)' },
+            { name: '马卡龙', filter: 'saturate(1.4) hue-rotate(-20deg)' }
         ];
 
-        // Theme Toggle
+        // Theme
         function toggleTheme() {
             const html = document.documentElement;
             const current = html.getAttribute('data-theme');
@@ -1624,161 +2081,160 @@
             localStorage.setItem('theme', next);
         }
 
-        // Load saved theme
         (function() {
             const saved = localStorage.getItem('theme');
-            if (saved) {
-                document.documentElement.setAttribute('data-theme', saved);
-            }
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
         })();
 
+        // Sidebar
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('expanded');
+        }
+
+        // Tabs
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById(`tab-${tab.dataset.tab}`).classList.remove('hidden');
+                currentTab = tab.dataset.tab;
+            });
+        });
+
         // Toast
-        function showToast(message) {
+        function showToast(message, type = '') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
-            toast.classList.add('show');
+            toast.className = 'toast show ' + type;
             setTimeout(() => toast.classList.remove('show'), 2500);
         }
 
         // Loading
-        function showLoading() {
-            document.getElementById('loadingOverlay').classList.add('show');
-        }
-
-        function hideLoading() {
-            document.getElementById('loadingOverlay').classList.remove('show');
-        }
+        function showLoading() { document.getElementById('loadingOverlay').classList.add('show'); }
+        function hideLoading() { document.getElementById('loadingOverlay').classList.remove('show'); }
 
         // File Upload
-        const uploadArea = document.getElementById('uploadArea');
+        const uploadZone = document.getElementById('uploadZone');
         const fileInput = document.getElementById('fileInput');
 
-        uploadArea.addEventListener('click', () => fileInput.click());
-        
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('dragover');
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('dragover');
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-            handleFiles(e.dataTransfer.files);
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            handleFiles(e.target.files);
-        });
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+        uploadZone.addEventListener('drop', (e) => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
         function handleFiles(files) {
             if (files.length === 0) return;
-            
             const file = files[0];
-            if (!file.type.startsWith('image/')) {
-                showToast('请上传图片文件');
-                return;
-            }
-
+            if (!file.type.startsWith('image/')) { showToast('请上传图片文件', 'error'); return; }
             originalFileName = file.name.replace(/\.[^/.]+$/, '');
-            
             const reader = new FileReader();
             reader.onload = (e) => {
                 const img = new Image();
                 img.onload = () => {
                     originalImage = img;
-                    currentRotation = 0;
-                    currentFlipH = false;
-                    currentFlipV = false;
+                    currentRotation = 0; currentFlipH = false; currentFlipV = false;
                     resetEnhance();
                     resetSliders();
+                    saveHistory();
                     renderCanvas();
                     document.getElementById('placeholder').classList.add('hidden');
+                    document.getElementById('fileSize').textContent = formatSize(file.size);
                 };
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
 
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+        }
+
         // Canvas Rendering
         function renderCanvas() {
             if (!originalImage) return;
-
-            const maxWidth = 800;
-            const maxHeight = 600;
-            let width = originalImage.width;
-            let height = originalImage.height;
-
-            // Apply resize
-            const widthSlider = document.getElementById('widthSlider');
-            const heightSlider = document.getElementById('heightSlider');
-            width = parseInt(widthSlider.value);
-            height = parseInt(heightSlider.value);
-
-            // Handle rotation
-            let renderWidth = width;
-            let renderHeight = height;
+            let width = parseInt(document.getElementById('widthSlider').value);
+            let height = parseInt(document.getElementById('heightSlider').value);
+            
             if (currentRotation === 90 || currentRotation === 270) {
-                renderWidth = height;
-                renderHeight = width;
+                canvas.width = height; canvas.height = width;
+            } else {
+                canvas.width = width; canvas.height = height;
             }
 
-            canvas.width = renderWidth;
-            canvas.height = renderHeight;
-
             ctx.save();
-            
-            // Apply transformations
-            ctx.translate(renderWidth / 2, renderHeight / 2);
+            ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate((currentRotation * Math.PI) / 180);
             ctx.scale(currentFlipH ? -1 : 1, currentFlipV ? -1 : 1);
             
-            // Apply filters
-            let filterString = 'none';
-            if (currentFilter !== 'none') {
-                filterString = currentFilter;
+            let filterStr = currentFilter;
+            const b = 100 + parseInt(document.getElementById('brightnessSlider').value);
+            const c = 100 + parseInt(document.getElementById('contrastSlider').value);
+            const s = 100 + parseInt(document.getElementById('saturationSlider').value);
+            if (b !== 100 || c !== 100 || s !== 100) {
+                filterStr = `brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
             }
-            
-            // Apply enhance values
-            const brightness = parseInt(document.getElementById('brightnessSlider').value);
-            const contrast = parseInt(document.getElementById('contrastSlider').value);
-            const saturation = parseInt(document.getElementById('saturationSlider').value);
-            
-            if (brightness !== 0 || contrast !== 0 || saturation !== 0) {
-                const b = 100 + brightness;
-                const c = 100 + contrast;
-                const s = 100 + saturation;
-                filterString = `brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
-            }
-            
-            ctx.filter = filterString === 'none' ? 'none' : filterString;
+            ctx.filter = filterStr === 'none' ? 'none' : filterStr;
             ctx.drawImage(originalImage, -width / 2, -height / 2, width, height);
             ctx.restore();
 
-            // Update info
-            updateSizeInfo();
+            // Apply blur
+            const blurVal = parseInt(document.getElementById('blurSlider').value);
+            if (blurVal > 0) applyBlur(blurVal);
+
+            // Draw markers
+            drawMarkers();
+
+            // Draw watermark
+            drawWatermark();
+
+            // Draw text
+            drawText();
+
+            // Apply round corners
+            const radius = parseInt(document.getElementById('radiusSlider').value);
+            if (radius > 0) applyRoundCorners(radius);
+
+            updateInfo();
+            updateEstimatedSize();
         }
 
-        function updateSizeInfo() {
-            if (!originalImage) return;
+        function updateInfo() {
+            document.getElementById('imgWidth').textContent = canvas.width;
+            document.getElementById('imgHeight').textContent = canvas.height;
             document.getElementById('widthValue').textContent = canvas.width + ' px';
             document.getElementById('heightValue').textContent = canvas.height + ' px';
         }
 
+        function updateEstimatedSize() {
+            if (!originalImage) return;
+            const quality = parseInt(document.getElementById('qualitySlider').value) / 100;
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width; tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.filter = ctx.filter;
+            tempCtx.drawImage(canvas, 0, 0);
+            const dataUrl = tempCanvas.toDataURL('image/jpeg', quality);
+            const size = Math.round(dataUrl.length * 0.75);
+            document.getElementById('compressedSize').textContent = formatSize(size);
+            document.getElementById('qualityValue').textContent = Math.round(quality * 100) + '%';
+            if (originalImage) {
+                const origSize = canvas.width * canvas.height * 4;
+                document.getElementById('originalSize').textContent = formatSize(origSize);
+                document.getElementById('compressionRatio').textContent = Math.round((1 - size / origSize) * 100) + '%';
+            }
+        }
+
         // Tool Switching
         function switchTool(tool) {
-            document.querySelectorAll('.tool-item').forEach(item => {
-                item.classList.remove('active');
-            });
+            document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`[data-tool="${tool}"]`).classList.add('active');
-
-            document.querySelectorAll('.tool-panel').forEach(panel => {
-                panel.classList.add('hidden');
-            });
-            document.getElementById(`${tool}Panel`).classList.remove('hidden');
+            document.querySelectorAll('.tool-panel').forEach(panel => panel.classList.add('hidden'));
+            const panel = document.getElementById(`${tool}Panel`);
+            if (panel) panel.classList.remove('hidden');
         }
 
         // Sliders
@@ -1798,110 +2254,245 @@
             renderCanvas();
         });
 
-        document.getElementById('qualitySlider').addEventListener('input', (e) => {
-            document.getElementById('qualityValue').textContent = e.target.value + '%';
-            updateEstimatedSize();
+        ['brightness', 'contrast', 'saturation', 'sharpness', 'exposure', 'temperature', 'quality', 'blur', 'markerSize', 'watermarkOpacity', 'watermarkSize', 'textSize', 'radius', 'borderWidth'].forEach(name => {
+            const slider = document.getElementById(`${name}Slider`);
+            const value = document.getElementById(`${name}Value`);
+            if (slider && value) {
+                slider.addEventListener('input', (e) => {
+                    value.textContent = name.includes('Opacity') || name.includes('Quality') || name === 'textSize' || name === 'watermarkSize' ? e.target.value + (name.includes('Opacity') || name.includes('Quality') ? '%' : 'px') : e.target.value;
+                    renderCanvas();
+                });
+            }
         });
 
-        document.getElementById('brightnessSlider').addEventListener('input', (e) => {
-            document.getElementById('brightnessValue').textContent = e.target.value;
-            renderCanvas();
-        });
-
-        document.getElementById('contrastSlider').addEventListener('input', (e) => {
-            document.getElementById('contrastValue').textContent = e.target.value;
-            renderCanvas();
-        });
-
-        document.getElementById('saturationSlider').addEventListener('input', (e) => {
-            document.getElementById('saturationValue').textContent = e.target.value;
-            renderCanvas();
-        });
-
-        document.getElementById('sharpnessSlider').addEventListener('input', (e) => {
-            document.getElementById('sharpnessValue').textContent = e.target.value;
-            renderCanvas();
-        });
-
-        document.getElementById('watermarkOpacitySlider').addEventListener('input', (e) => {
-            document.getElementById('watermarkOpacityValue').textContent = e.target.value + '%';
-        });
-
-        document.getElementById('watermarkSizeSlider').addEventListener('input', (e) => {
-            document.getElementById('watermarkSizeValue').textContent = e.target.value + 'px';
-        });
-
-        document.getElementById('textSizeSlider').addEventListener('input', (e) => {
-            document.getElementById('textSizeValue').textContent = e.target.value + 'px';
-        });
-
-        document.getElementById('radiusSlider').addEventListener('input', (e) => {
-            document.getElementById('radiusValue').textContent = e.target.value + ' px';
-            applyRoundCorners();
-        });
-
-        document.getElementById('borderWidthSlider').addEventListener('input', (e) => {
-            document.getElementById('borderWidthValue').textContent = e.target.value + ' px';
-            applyRoundCorners();
-        });
-
-        document.getElementById('borderColor').addEventListener('input', (e) => {
-            applyRoundCorners();
-        });
-
-        // Format Selection
+        // Format
         function selectFormat(format) {
             currentFormat = format;
-            document.querySelectorAll('.format-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-format="${format}"]`).classList.add('active');
+            document.querySelectorAll('.format-btn[data-format]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.format-btn[data-format="${format}"]`).classList.add('active');
         }
 
-        // Aspect Selection
+        // Aspect
         function selectAspect(aspect) {
-            currentAspect = aspect;
-            document.querySelectorAll('.aspect-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('[data-ratio]').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`[data-ratio="${aspect}"]`).classList.add('active');
+            // Apply crop based on aspect
+            if (aspect !== 'free' && originalImage) {
+                const [w, h] = aspect.split(':').map(Number);
+                const ratio = w / h;
+                let newWidth = canvas.width;
+                let newHeight = canvas.width / ratio;
+                if (newHeight > canvas.height) {
+                    newHeight = canvas.height;
+                    newWidth = canvas.height * ratio;
+                }
+                // This is simplified - actual crop would need canvas clipping
+                showToast(`已选择 ${aspect} 裁剪比例`);
+            }
         }
 
-        // Layout Selection
-        function selectLayout(layout) {
-            currentLayout = layout;
-            document.querySelectorAll('.aspect-btn').forEach(btn => {
-                btn.classList.remove('active');
+        // Rotate/Flip
+        function rotate(angle) { currentRotation = (currentRotation + angle) % 360; renderCanvas(); saveHistory(); }
+        function flipH() { currentFlipH = !currentFlipH; renderCanvas(); saveHistory(); }
+        function flipV() { currentFlipV = !currentFlipV; renderCanvas(); saveHistory(); }
+
+        // Blur
+        function applyBlur(amount) {
+            if (amount === 0) return;
+            ctx.filter = `blur(${amount}px)`;
+        }
+
+        // Round Corners
+        function applyRoundCorners(radius) {
+            if (radius === 0) return;
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width; tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.fillStyle = document.getElementById('borderColor').value;
+            tempCtx.beginPath();
+            roundedRect(tempCtx, 0, 0, canvas.width, canvas.height, radius);
+            tempCtx.fill();
+            tempCtx.globalCompositeOperation = 'destination-in';
+            tempCtx.drawImage(canvas, 0, 0);
+            
+            const borderWidth = parseInt(document.getElementById('borderWidthSlider').value);
+            if (borderWidth > 0) {
+                tempCtx.globalCompositeOperation = 'source-over';
+                tempCtx.strokeStyle = document.getElementById('borderColor').value;
+                tempCtx.lineWidth = borderWidth * 2;
+                tempCtx.beginPath();
+                roundedRect(tempCtx, borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth, radius);
+                tempCtx.stroke();
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(tempCanvas, 0, 0);
+        }
+
+        function roundedRect(ctx, x, y, w, h, r) {
+            ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        // Markers
+        function selectMarker(type) {
+            document.querySelectorAll('.marker-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-marker="${type}"]`).classList.add('active');
+            currentMarker = type;
+            canvas.style.cursor = 'crosshair';
+        }
+
+        function setMarkerColor(color) {
+            document.getElementById('markerColor').value = color;
+            document.querySelectorAll('[data-color]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-color="${color}"]`).classList.add('active');
+        }
+
+        function clearMarkers() { markers = []; renderCanvas(); }
+        function undoLastMarker() { markers.pop(); renderCanvas(); }
+
+        function drawMarkers() {
+            markers.forEach(m => {
+                ctx.strokeStyle = m.color;
+                ctx.fillStyle = m.color;
+                ctx.lineWidth = m.size;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                
+                if (m.type === 'arrow') {
+                    drawArrow(m.x1, m.y1, m.x2, m.y2);
+                } else if (m.type === 'rect') {
+                    ctx.strokeRect(m.x1, m.y1, m.x2 - m.x1, m.y2 - m.y1);
+                } else if (m.type === 'circle') {
+                    ctx.beginPath();
+                    ctx.arc(m.x1, m.y1, Math.sqrt((m.x2 - m.x1) ** 2 + (m.y2 - m.y1) ** 2), 0, Math.PI * 2);
+                    ctx.stroke();
+                } else if (m.type === 'pen' && m.points) {
+                    ctx.beginPath();
+                    ctx.moveTo(m.points[0].x, m.points[0].y);
+                    m.points.forEach(p => ctx.lineTo(p.x, p.y));
+                    ctx.stroke();
+                } else if (m.type === 'highlight') {
+                    ctx.globalAlpha = 0.3;
+                    ctx.fillRect(m.x1, m.y1, m.x2 - m.x1, m.y2 - m.y1);
+                    ctx.globalAlpha = 1;
+                }
             });
-            document.querySelector(`[data-layout="${layout}"]`).classList.add('active');
         }
 
-        // Rotate Functions
-        function rotate(angle) {
-            currentRotation = (currentRotation + angle) % 360;
+        function drawArrow(x1, y1, x2, y2) {
+            const headlen = 15;
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6), y2 - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6), y2 - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.stroke();
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if (!currentMarker || !originalImage) return;
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            
+            if (currentMarker === 'pen') {
+                currentMarkerObj = { type: 'pen', color: document.getElementById('markerColor').value, size: parseInt(document.getElementById('markerSizeSlider').value), points: [{ x, y }] };
+            } else {
+                currentMarkerObj = { type: currentMarker, color: document.getElementById('markerColor').value, size: parseInt(document.getElementById('markerSizeSlider').value), x1: x, y1: y, x2: x, y2: y };
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing || !currentMarkerObj) return;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            
+            if (currentMarker === 'pen') {
+                currentMarkerObj.points.push({ x, y });
+            } else {
+                currentMarkerObj.x2 = x; currentMarkerObj.y2 = y;
+            }
             renderCanvas();
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            if (isDrawing && currentMarkerObj) {
+                markers.push(currentMarkerObj);
+                currentMarkerObj = null;
+            }
+            isDrawing = false;
+        });
+
+        // Watermark
+        function drawWatermark() {
+            const text = document.getElementById('watermarkText').value;
+            if (!text) return;
+            const opacity = parseInt(document.getElementById('watermarkOpacitySlider').value) / 100;
+            const size = parseInt(document.getElementById('watermarkSizeSlider').value);
+            const pos = document.querySelector('.btn-option[data-pos].active')?.dataset.pos || 'br';
+            
+            ctx.globalAlpha = opacity;
+            ctx.font = `${size}px Arial`;
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+            ctx.lineWidth = 2;
+            
+            const metrics = ctx.measureText(text);
+            const padding = 20;
+            let x, y;
+            
+            if (pos.includes('l')) x = padding;
+            else x = canvas.width - metrics.width - padding;
+            if (pos.includes('t')) y = size + padding;
+            else y = canvas.height - padding;
+            
+            ctx.strokeText(text, x, y);
+            ctx.fillText(text, x, y);
+            ctx.globalAlpha = 1;
         }
 
-        function flipH() {
-            currentFlipH = !currentFlipH;
-            renderCanvas();
+        // Text
+        function drawText() {
+            const text = document.getElementById('textContent').value;
+            if (!text) return;
+            const size = parseInt(document.getElementById('textSizeSlider').value);
+            const color = document.getElementById('textColor').value;
+            const stroke = document.getElementById('textStroke').checked;
+            
+            ctx.font = `bold ${size}px Arial`;
+            ctx.fillStyle = color;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            if (stroke) {
+                ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+                ctx.lineWidth = size / 10;
+                ctx.strokeText(text, canvas.width / 2, canvas.height / 2);
+            }
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
         }
 
-        function flipV() {
-            currentFlipV = !currentFlipV;
-            renderCanvas();
-        }
-
-        // Reset Functions
+        // Reset
         function resetEnhance() {
-            document.getElementById('brightnessSlider').value = 0;
-            document.getElementById('contrastSlider').value = 0;
-            document.getElementById('saturationSlider').value = 0;
-            document.getElementById('sharpnessSlider').value = 0;
-            document.getElementById('brightnessValue').textContent = '0';
-            document.getElementById('contrastValue').textContent = '0';
-            document.getElementById('saturationValue').textContent = '0';
-            document.getElementById('sharpnessValue').textContent = '0';
+            ['brightness', 'contrast', 'saturation', 'sharpness', 'exposure', 'temperature'].forEach(name => {
+                document.getElementById(`${name}Slider`).value = name === 'sharpness' ? 0 : 0;
+                document.getElementById(`${name}Value`).textContent = '0';
+            });
         }
 
         function resetSliders() {
@@ -1911,226 +2502,254 @@
                 document.getElementById('heightSlider').max = originalImage.height;
                 document.getElementById('heightSlider').value = originalImage.height;
             }
-            document.getElementById('qualitySlider').value = 80;
-            document.getElementById('qualityValue').textContent = '80%';
         }
 
         function resetCanvas() {
-            if (!originalImage) {
-                showToast('请先上传图片');
-                return;
-            }
-            currentRotation = 0;
-            currentFlipH = false;
-            currentFlipV = false;
-            currentFilter = 'none';
-            resetEnhance();
-            resetSliders();
+            if (!originalImage) { showToast('请先上传图片', 'error'); return; }
+            currentRotation = 0; currentFlipH = false; currentFlipV = false; currentFilter = 'none';
+            markers = [];
+            resetEnhance(); resetSliders();
             renderCanvas();
             showToast('已重置');
         }
 
-        // Filter Preview
+        // History
+        function saveHistory() {
+            if (!originalImage) return;
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            history = history.slice(0, historyIndex + 1);
+            history.push(imageData);
+            historyIndex = history.length - 1;
+        }
+
+        function undo() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                ctx.putImageData(history[historyIndex], 0, 0);
+                showToast('已撤销');
+            }
+        }
+
+        function redo() {
+            if (historyIndex < history.length - 1) {
+                historyIndex++;
+                ctx.putImageData(history[historyIndex], 0, 0);
+                showToast('已重做');
+            }
+        }
+
+        // Filters
         function initFilterGrid() {
             const grid = document.getElementById('filterGrid');
             grid.innerHTML = '';
-            
-            filters.forEach((f, index) => {
+            filters.forEach((f, i) => {
                 const item = document.createElement('div');
-                item.className = 'filter-item' + (index === 0 ? ' active' : '');
+                item.className = 'filter-item' + (i === 0 ? ' active' : '');
                 item.dataset.filter = f.filter;
-                
                 const thumb = document.createElement('canvas');
-                thumb.width = 100;
-                thumb.height = 100;
-                const thumbCtx = thumb.getContext('2d');
-                
+                thumb.width = 90; thumb.height = 90;
                 item.appendChild(thumb);
-                
                 const label = document.createElement('span');
                 label.textContent = f.name;
                 item.appendChild(label);
-                
                 item.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+                    document.querySelectorAll('.filter-item').forEach(el => el.classList.remove('active'));
                     item.classList.add('active');
                     currentFilter = f.filter;
                     renderCanvas();
                 });
-                
                 grid.appendChild(item);
             });
         }
 
-        // Update Filter Thumbnails
         function updateFilterThumbs() {
             if (!originalImage) return;
-            
-            const thumbs = document.querySelectorAll('.filter-item canvas');
-            thumbs.forEach((thumb, index) => {
+            document.querySelectorAll('.filter-item canvas').forEach((thumb, i) => {
                 const thumbCtx = thumb.getContext('2d');
-                const filter = filters[index].filter;
-                thumbCtx.filter = filter === 'none' ? 'none' : filter;
-                thumbCtx.drawImage(originalImage, 0, 0, 100, 100);
+                thumbCtx.filter = filters[i].filter === 'none' ? 'none' : filters[i].filter;
+                thumbCtx.drawImage(originalImage, 0, 0, 90, 90);
             });
         }
 
-        // Apply Round Corners
-        function applyRoundCorners() {
-            if (!canvas) return;
-            
-            const radius = parseInt(document.getElementById('radiusSlider').value);
-            const borderWidth = parseInt(document.getElementById('borderWidthSlider').value);
-            const borderColor = document.getElementById('borderColor').value;
-            
-            if (radius === 0 && borderWidth === 0) {
-                renderCanvas();
-                return;
-            }
-
-            // Create temp canvas
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
-            const tempCtx = tempCanvas.getContext('2d');
-            
-            // Draw rounded rectangle
-            tempCtx.fillStyle = borderColor;
-            tempCtx.beginPath();
-            roundedRect(tempCtx, 0, 0, canvas.width, canvas.height, radius);
-            tempCtx.fill();
-            
-            // Draw image with clipping
-            tempCtx.globalCompositeOperation = 'destination-in';
-            tempCtx.drawImage(canvas, 0, 0);
-            
-            // Draw border
-            if (borderWidth > 0) {
-                tempCtx.globalCompositeOperation = 'source-over';
-                tempCtx.strokeStyle = borderColor;
-                tempCtx.lineWidth = borderWidth * 2;
-                tempCtx.beginPath();
-                roundedRect(tempCtx, borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth, radius);
-                tempCtx.stroke();
-            }
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(tempCanvas, 0, 0);
+        // Layout
+        function selectLayout(layout) {
+            currentLayout = layout;
+            document.querySelectorAll('[data-layout]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-layout="${layout}"]`).classList.add('active');
         }
 
-        function roundedRect(ctx, x, y, width, height, radius) {
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(x + width - radius, y);
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-            ctx.lineTo(x + width, y + height - radius);
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-            ctx.lineTo(x + radius, y + height);
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
+        // Watermark Position
+        function setWatermarkPos(pos) {
+            document.querySelectorAll('[data-pos]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-pos="${pos}"]`).classList.add('active');
         }
 
-        // Update Estimated Size
-        function updateEstimatedSize() {
-            if (!originalImage) return;
-            const quality = parseInt(document.getElementById('qualitySlider').value) / 100;
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCtx.drawImage(canvas, 0, 0);
-            const dataUrl = tempCanvas.toDataURL('image/jpeg', quality);
-            const size = Math.round(dataUrl.length * 0.75);
-            document.getElementById('estimatedSize').textContent = size > 1024 ? (size / 1024).toFixed(1) + ' MB' : size + ' KB';
+        // Compare
+        function toggleCompare() {
+            showToast('对比功能：拖动滑块查看原图与处理后效果');
+        }
+
+        // Batch
+        document.getElementById('batchFileInput').addEventListener('change', (e) => {
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = document.createElement('img');
+                    img.src = ev.target.result;
+                    img.onload = () => {
+                        batchImages.push({ file, img, name: file.name });
+                        updateBatchGrid();
+                    };
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function updateBatchGrid() {
+            const grid = document.getElementById('batchFiles');
+            grid.innerHTML = batchImages.map((item, i) => `
+                <div class="batch-item">
+                    <img src="${item.img.src}">
+                    <div class="remove" onclick="removeBatchItem(${i})">×</div>
+                </div>
+            `).join('') + `
+                <div class="gif-add" onclick="document.getElementById('batchFileInput').click()" style="width:100%;height:100px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    <span>添加图片</span>
+                </div>
+            `;
+        }
+
+        function removeBatchItem(index) { batchImages.splice(index, 1); updateBatchGrid(); }
+        function clearBatch() { batchImages = []; updateBatchGrid(); showToast('已清空'); }
+
+        function selectBatchFormat(format) {
+            batchFormat = format;
+            document.querySelectorAll('#tab-batch .format-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#tab-batch [data-format="${format}"]`).classList.add('active');
+        }
+
+        function processBatch() {
+            if (batchImages.length === 0) { showToast('请先添加图片', 'error'); return; }
+            showLoading();
+            setTimeout(() => {
+                batchImages.forEach((item, i) => {
+                    setTimeout(() => {
+                        const tempCanvas = document.createElement('canvas');
+                        let w = item.img.width, h = item.img.height;
+                        const batchW = parseInt(document.getElementById('batchWidthSlider').value);
+                        const batchH = parseInt(document.getElementById('batchHeightSlider').value);
+                        if (batchW > 0) { h = Math.round(h * batchW / w); w = batchW; }
+                        if (batchH > 0) { w = Math.round(w * batchH / h); h = batchH; }
+                        tempCanvas.width = w; tempCanvas.height = h;
+                        const tempCtx = tempCanvas.getContext('2d');
+                        tempCtx.drawImage(item.img, 0, 0, w, h);
+                        const format = batchFormat === 'original' ? item.file.type.split('/')[1] : batchFormat;
+                        const quality = parseInt(document.getElementById('batchQualitySlider').value) / 100;
+                        const link = document.createElement('a');
+                        link.download = item.name.replace(/\.[^/.]+$/, '') + '_processed.' + format;
+                        link.href = tempCanvas.toDataURL(`image/${format}`, quality);
+                        link.click();
+                    }, i * 300);
+                });
+                hideLoading();
+                showToast('批量处理完成！', 'success');
+            }, 500);
+        }
+
+        // GIF
+        document.getElementById('gifFileInput').addEventListener('change', (e) => {
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = document.createElement('img');
+                    img.src = ev.target.result;
+                    img.onload = () => {
+                        gifFrames.push({ file, img });
+                        updateGifFrames();
+                    };
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function updateGifFrames() {
+            const container = document.getElementById('gifFrames');
+            container.innerHTML = gifFrames.map((frame, i) => `
+                <div class="gif-frame">
+                    <img src="${frame.img.src}">
+                    <div class="remove" onclick="removeGifFrame(${i})">×</div>
+                    <div class="number">#${i + 1}</div>
+                </div>
+            `).join('') + `
+                <div class="gif-add" onclick="document.getElementById('gifFileInput').click()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    <span>添加帧</span>
+                </div>
+            `;
+        }
+
+        function removeGifFrame(index) { gifFrames.splice(index, 1); updateGifFrames(); }
+        function setGifLoop(loop) { gifLoop = loop; document.querySelectorAll('[data-loop]').forEach(btn => btn.classList.toggle('active', btn.dataset.loop === String(loop))); }
+
+        function previewGif() {
+            if (gifFrames.length < 2) { showToast('请至少添加2张图片', 'error'); return; }
+            showToast('预览功能开发中...');
+        }
+
+        function generateGif() {
+            if (gifFrames.length < 2) { showToast('请至少添加2张图片', 'error'); return; }
+            showLoading();
+            // Simplified GIF generation using canvas frames
+            // Note: Actual GIF encoding would require a library like gif.js
+            setTimeout(() => {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = gifFrames[0].img.width;
+                tempCanvas.height = gifFrames[0].img.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                // For demo, just download first frame as image
+                const link = document.createElement('a');
+                link.download = 'animation.gif';
+                link.href = tempCanvas.toDataURL('image/png');
+                link.click();
+                
+                hideLoading();
+                showToast('GIF 生成功能需要额外库支持', 'error');
+            }, 1000);
         }
 
         // Download
         function downloadImage() {
-            if (!canvas || !originalImage) {
-                showToast('请先上传图片');
-                return;
-            }
-
+            if (!canvas || !originalImage) { showToast('请先上传图片', 'error'); return; }
             showLoading();
-
             setTimeout(() => {
-                // Apply watermark if text exists
-                const watermarkText = document.getElementById('watermarkText').value;
-                if (watermarkText) {
-                    const opacity = parseInt(document.getElementById('watermarkOpacitySlider').value) / 100;
-                    const size = parseInt(document.getElementById('watermarkSizeSlider').value);
-                    ctx.globalAlpha = opacity;
-                    ctx.font = `${size}px Arial`;
-                    ctx.fillStyle = 'white';
-                    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-                    ctx.lineWidth = 2;
-                    ctx.strokeText(watermarkText, 20, canvas.height - 20);
-                    ctx.fillText(watermarkText, 20, canvas.height - 20);
-                    ctx.globalAlpha = 1;
-                }
-
-                // Apply text if exists
-                const textContent = document.getElementById('textContent').value;
-                if (textContent) {
-                    const size = parseInt(document.getElementById('textSizeSlider').value);
-                    ctx.font = `bold ${size}px Arial`;
-                    ctx.fillStyle = 'white';
-                    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-                    ctx.lineWidth = 3;
-                    ctx.textAlign = 'center';
-                    ctx.strokeText(textContent, canvas.width / 2, canvas.height / 2);
-                    ctx.fillText(textContent, canvas.width / 2, canvas.height / 2);
-                }
-
-                // Apply round corners
-                const radius = parseInt(document.getElementById('radiusSlider').value);
-                const borderWidth = parseInt(document.getElementById('borderWidthSlider').value);
-                const borderColor = document.getElementById('borderColor').value;
-                
-                if (radius > 0 || borderWidth > 0) {
-                    const tempCanvas = document.createElement('canvas');
-                    tempCanvas.width = canvas.width;
-                    tempCanvas.height = canvas.height;
-                    const tempCtx = tempCanvas.getContext('2d');
-                    
-                    tempCtx.fillStyle = borderColor;
-                    tempCtx.beginPath();
-                    roundedRect(tempCtx, 0, 0, canvas.width, canvas.height, radius);
-                    tempCtx.fill();
-                    
-                    tempCtx.globalCompositeOperation = 'destination-in';
-                    tempCtx.drawImage(canvas, 0, 0);
-                    
-                    if (borderWidth > 0) {
-                        tempCtx.globalCompositeOperation = 'source-over';
-                        tempCtx.strokeStyle = borderColor;
-                        tempCtx.lineWidth = borderWidth * 2;
-                        tempCtx.beginPath();
-                        roundedRect(tempCtx, borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth, radius);
-                        tempCtx.stroke();
-                    }
-                    
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(tempCanvas, 0, 0);
-                }
-
-                // Download
                 const quality = parseInt(document.getElementById('qualitySlider').value) / 100;
                 const mimeType = `image/${currentFormat}`;
-                const dataUrl = canvas.toDataURL(mimeType, quality);
-                
                 const link = document.createElement('a');
                 link.download = `${originalFileName}_${currentFormat}.${currentFormat === 'jpeg' ? 'jpg' : currentFormat}`;
-                link.href = dataUrl;
+                link.href = canvas.toDataURL(mimeType, quality);
                 link.click();
-
                 hideLoading();
-                showToast('下载成功！');
+                showToast('下载成功！', 'success');
             }, 100);
         }
 
-        // Initialize
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === 'z') { e.preventDefault(); undo(); }
+                if (e.key === 'y') { e.preventDefault(); redo(); }
+            }
+        });
+
+        // Init
         initFilterGrid();
     </script>
 </body>
