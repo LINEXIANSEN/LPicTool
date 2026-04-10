@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicTool - 免费在线AI图片处理工具</title>
+    <meta name="description" content="免费在线图片处理工具，支持图片压缩、格式转换、背景移除、尺寸调整等功能">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .tool-card.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            border: 3px dashed var(--border);
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 1rem;
+        }
+
+        .upload-btn:hover {
+            transform: scale(1.05);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* Preview Area */
+        .preview-area {
+            display: none;
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .preview-area.show {
+            display: block;
+        }
+
+        .preview-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .preview-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .preview-box {
+            text-align: center;
+        }
+
+        .preview-box h4 {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .file-info {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group {
+            margin-bottom: 1rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Ad Placeholder */
+        .ad-placeholder {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px dashed var(--warning);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .ad-placeholder p {
+            color: #92400e;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎨 PicTool</h1>
+        <p>免费在线AI图片处理工具 - 压缩、转换、编辑一站式解决</p>
+    </header>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">免费使用</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">无需注册</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">无次数限制</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">🔒</div>
+                <div class="stat-label">本地处理，保护隐私</div>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <div class="tool-card active" data-tool="compress">
+                <div class="tool-icon">🗜️</div>
+                <h3>图片压缩</h3>
+                <p>智能压缩图片大小，保持画质，支持批量处理</p>
+            </div>
+            <div class="tool-card" data-tool="convert">
+                <div class="tool-icon">🔄</div>
+                <h3>格式转换</h3>
+                <p>JPG、PNG、WEBP、GIF 互转，一键搞定</p>
+            </div>
+            <div class="tool-card" data-tool="resize">
+                <div class="tool-icon">📐</div>
+                <h3>尺寸调整</h3>
+                <p>修改图片尺寸，支持自定义宽高和预设比例</p>
+            </div>
+            <div class="tool-card" data-tool="crop">
+                <div class="tool-icon">✂️</div>
+                <h3>智能裁剪</h3>
+                <p>按比例裁剪，支持社交媒体预设尺寸</p>
+            </div>
+        </div>
+
+        <!-- Ad Placeholder -->
+        <div class="ad-placeholder">
+            <p>📢 广告位 - 接入 Google AdSense 后可展示广告获得收入</p>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📤</div>
+            <h3>拖拽图片到此处，或点击上传</h3>
+            <p>支持 JPG、PNG、WEBP、GIF 格式，最大 10MB</p>
+            <button class="upload-btn">选择文件</button>
+            <input type="file" id="fileInput" accept="image/*" multiple>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>正在处理中...</p>
+        </div>
+
+        <!-- Preview Area -->
+        <div class="preview-area" id="previewArea">
+            <div class="preview-container">
+                <div class="preview-box">
+                    <h4>原图</h4>
+                    <img id="originalPreview" alt="原图预览">
+                    <div class="file-info" id="originalInfo"></div>
+                </div>
+                <div class="preview-box">
+                    <h4>处理后</h4>
+                    <img id="processedPreview" alt="处理后预览">
+                    <div class="file-info" id="processedInfo"></div>
+                </div>
+            </div>
+
+            <!-- Tool Controls -->
+            <div class="controls" id="controls">
+                <!-- Compress Controls -->
+                <div id="compressControls">
+                    <div class="control-group">
+                        <label>压缩质量: <span id="qualityValue">80</span>%</label>
+                        <input type="range" id="quality" min="1" max="100" value="80">
+                    </div>
+                    <div class="control-group">
+                        <label>最大宽度 (像素):</label>
+                        <input type="range" id="maxWidth" min="100" max="4000" value="1920" step="100">
+                        <span id="maxWidthValue">1920</span>px
+                    </div>
+                </div>
+
+                <!-- Convert Controls -->
+                <div id="convertControls" style="display:none">
+                    <div class="control-group">
+                        <label>目标格式:</label>
+                        <select id="targetFormat">
+                            <option value="image/jpeg">JPG</option>
+                            <option value="image/png">PNG</option>
+                            <option value="image/webp">WEBP</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Resize Controls -->
+                <div id="resizeControls" style="display:none">
+                    <div class="control-group">
+                        <label>宽度: <span id="resizeWidthValue">800</span>px</label>
+                        <input type="range" id="resizeWidth" min="50" max="4000" value="800" step="10">
+                    </div>
+                    <div class="control-group">
+                        <label>高度: <span id="resizeHeightValue">600</span>px</label>
+                        <input type="range" id="resizeHeight" min="50" max="4000" value="600" step="10">
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="keepRatio" checked> 保持宽高比
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="processBtn">开始处理</button>
+                <button class="btn btn-primary" id="downloadBtn" style="display:none">下载图片</button>
+                <button class="btn btn-secondary" id="resetBtn">重新上传</button>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <h2>为什么选择 PicTool？</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>极速处理</h3>
+                    <p>本地浏览器处理，无需上传服务器，秒级完成</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h3>隐私安全</h3>
+                    <p>图片在本地处理，不会上传到任何服务器</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💯</div>
+                    <h3>完全免费</h3>
+                    <p>所有功能免费使用，无隐藏收费</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3>全平台支持</h3>
+                    <p>支持电脑、手机、平板，随时随地使用</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad Placeholder -->
+        <div class="ad-placeholder">
+            <p>📢 广告位 - 接入 Google AdSense 后可展示广告获得收入</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 PicTool. 免费在线图片处理工具</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">所有处理均在本地完成，保护您的隐私安全</p>
+    </footer>
+
+    <script>
+        // State
+        let currentTool = 'compress';
+        let originalFile = null;
+        let processedBlob = null;
+        let originalImage = null;
+
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.querySelector('.upload-btn');
+        const previewArea = document.getElementById('previewArea');
+        const loading = document.getElementById('loading');
+        const toolCards = document.querySelectorAll('.tool-card');
+
+        // Tool Selection
+        toolCards.forEach(card => {
+            card.addEventListener('click', () => {
+                toolCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                currentTool = card.dataset.tool;
+                updateControls();
+            });
+        });
+
+        function updateControls() {
+            document.getElementById('compressControls').style.display = 
+                currentTool === 'compress' ? 'block' : 'none';
+            document.getElementById('convertControls').style.display = 
+                currentTool === 'convert' ? 'block' : 'none';
+            document.getElementById('resizeControls').style.display = 
+                currentTool === 'resize' ? 'block' : 'none';
+        }
+
+        // Upload Handling
+        uploadBtn.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        // Drag & Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('请上传图片文件');
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert('文件大小不能超过10MB');
+                return;
+            }
+
+            originalFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage = new Image();
+                originalImage.onload = () => {
+                    showPreview();
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showPreview() {
+            uploadArea.style.display = 'none';
+            previewArea.classList.add('show');
+
+            document.getElementById('originalPreview').src = originalImage.src;
+            document.getElementById('originalInfo').innerHTML = `
+                <strong>文件名:</strong> ${originalFile.name}<br>
+                <strong>尺寸:</strong> ${originalImage.width} x ${originalImage.height}px<br>
+                <strong>大小:</strong> ${formatFileSize(originalFile.size)}
+            `;
+
+            // Auto process for compress
+            if (currentTool === 'compress') {
+                processImage();
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Process Image
+        document.getElementById('processBtn').addEventListener('click', processImage);
+
+        function processImage() {
+            loading.classList.add('show');
+
+            setTimeout(() => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                let width = originalImage.width;
+                let height = originalImage.height;
+
+                switch (currentTool) {
+                    case 'compress':
+                        const maxWidth = parseInt(document.getElementById('maxWidth').value);
+                        if (width > maxWidth) {
+                            height = (height * maxWidth) / width;
+                            width = maxWidth;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(originalImage, 0, 0, width, height);
+                        
+                        const quality = parseInt(document.getElementById('quality').value) / 100;
+                        canvas.toBlob((blob) => {
+                            processedBlob = blob;
+                            showProcessed(canvas, blob);
+                        }, 'image/jpeg', quality);
+                        break;
+
+                    case 'convert':
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(originalImage, 0, 0);
+                        const targetFormat = document.getElementById('targetFormat').value;
+                        canvas.toBlob((blob) => {
+                            processedBlob = blob;
+                            showProcessed(canvas, blob);
+                        }, targetFormat, 0.9);
+                        break;
+
+                    case 'resize':
+                        const newWidth = parseInt(document.getElementById('resizeWidth').value);
+                        const newHeight = parseInt(document.getElementById('resizeHeight').value);
+                        const keepRatio = document.getElementById('keepRatio').checked;
+                        
+                        if (keepRatio) {
+                            const ratio = Math.min(newWidth / width, newHeight / height);
+                            width = width * ratio;
+                            height = height * ratio;
+                        } else {
+                            width = newWidth;
+                            height = newHeight;
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(originalImage, 0, 0, width, height);
+                        canvas.toBlob((blob) => {
+                            processedBlob = blob;
+                            showProcessed(canvas, blob);
+                        }, originalFile.type, 0.9);
+                        break;
+                }
+            }, 100);
+        }
+
+        function showProcessed(canvas, blob) {
+            loading.classList.remove('show');
+            
+            const processedUrl = URL.createObjectURL(blob);
+            document.getElementById('processedPreview').src = processedUrl;
+            document.getElementById('processedInfo').innerHTML = `
+                <strong>处理后尺寸:</strong> ${canvas.width} x ${canvas.height}px<br>
+                <strong>处理后大小:</strong> ${formatFileSize(blob.size)}<br>
+                <strong>压缩率:</strong> ${((1 - blob.size / originalFile.size) * 100).toFixed(1)}%
+            `;
+            
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+            document.getElementById('processBtn').style.display = 'none';
+        }
+
+        // Download
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            if (!processedBlob) return;
+            
+            const url = URL.createObjectURL(processedBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            let extension = 'jpg';
+            if (currentTool === 'convert') {
+                const format = document.getElementById('targetFormat').value;
+                extension = format.split('/')[1];
+            } else {
+                extension = originalFile.name.split('.').pop();
+            }
+            
+            a.download = `processed_${Date.now()}.${extension}`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Reset
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            uploadArea.style.display = 'block';
+            previewArea.classList.remove('show');
+            fileInput.value = '';
+            originalFile = null;
+            processedBlob = null;
+            originalImage = null;
+            document.getElementById('downloadBtn').style.display = 'none';
+            document.getElementById('processBtn').style.display = 'inline-block';
+        });
+
+        // Range Input Updates
+        document.getElementById('quality').addEventListener('input', (e) => {
+            document.getElementById('qualityValue').textContent = e.target.value;
+        });
+
+        document.getElementById('maxWidth').addEventListener('input', (e) => {
+            document.getElementById('maxWidthValue').textContent = e.target.value;
+        });
+
+        document.getElementById('resizeWidth').addEventListener('input', (e) => {
+            document.getElementById('resizeWidthValue').textContent = e.target.value;
+            if (document.getElementById('keepRatio').checked && originalImage) {
+                const ratio = e.target.value / originalImage.width;
+                document.getElementById('resizeHeight').value = Math.round(originalImage.height * ratio);
+                document.getElementById('resizeHeightValue').textContent = document.getElementById('resizeHeight').value;
+            }
+        });
+
+        document.getElementById('resizeHeight').addEventListener('input', (e) => {
+            document.getElementById('resizeHeightValue').textContent = e.target.value;
+        });
+    </script>
+</body>
+</html>
